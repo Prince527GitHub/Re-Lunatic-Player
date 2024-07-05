@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>Re:Lunatic Player</title>
+</head>
+<body>
+
+  <div class="top">
+    <img id="cover" src="./img/undefined.png" alt="cover">
+
+    <div>
+      <h1 id="title">Loading...</h1>
+      <p id="description">0sec. (Loading...)</p>
+
+      <div>
+        <p id="current">00:00</p>
+        <p id="total">00:00</p>
+      </div>
+
+      <button id="button-stop"><i data-feather="x-square"></i></button>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="left">
+      <button id="button-volume"><i data-feather="volume-2"></i></button>
+      <input type="range" name="volume" id="volume" min="0" max="1" step="0.01" value="0.5" style="display: none;">
+      <button id="button-history"><i data-feather="menu"></i></button>
+    </div>
+
+    <div class="right">
+      <button id="button-settings"><i data-feather="settings"></i></button>
+    </div>
+  </div>
+
+  <script src="./js/script.js"></script>
+
+</body>
+</html>

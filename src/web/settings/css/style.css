@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(84, 21, 103);
+    overflow: hidden;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+}
+
+.left {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-left: 1rem;
+    display: flex;
+    width: 40%;
+}
+
+.left img {
+    filter: drop-shadow(0 0 .5rem rgba(0, 0, 0, 0.75));
+    height: 70%;
+    width: 70%;
+}
+
+.left h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.left p {
+    font-size: .8rem;
+    margin-top: 0;
+}
+
+.right {
+    box-sizing: border-box;
+    padding: 1rem;
+    width: 60%;
+}
+
+.right button {
+    transition: all .1s ease;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: .25rem;
+    margin-bottom: .25rem;
+    margin-top: .25rem;
+    cursor: pointer;
+    border: none;
+    height: 2rem;
+    width: 100%;
+}
+
+.right button:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+    scale: 1.05;
+}
+
+.right button:active {
+    background-color: rgba(255, 255, 255, 0.5);
+    scale: 0.99;
+}
+
+.right div {
+    margin: 0;
+    padding: 0;
+
+    background-color: #fff;
+    border-radius: .25rem;
+    margin-bottom: .25rem;
+    padding-right: .25rem;
+    padding-left: .25rem;
+    flex-direction: row;
+    align-items: center;
+    margin-top: .25rem;
+    display: flex;
+    height: 2rem;
+}
+
+.right div input {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    margin-bottom: .25rem;
+    margin-right: .25rem;
+    margin-top: .25rem;
+    accent-color: rgb(108, 26, 133);
+    width: 100%;
+}
+
+.right div span {
+    background-color: rgb(108, 26, 133);
+    border-radius: .25rem;
+    margin-bottom: .25rem;
+    text-align: center;
+    margin-top: .25rem;
+    padding: .25rem;
+    height: 1rem;
+    width: 6rem;
+}
+
+.right h2 {
+    padding: 0;
+    margin: 0;
+
+    padding-top: .5rem;
+}
+
+.right p {
+    font-size: .8rem;
+    padding: 0;
+    margin: 0;
+
+    padding-bottom: .10rem;
+    padding-top: .10rem;
+}

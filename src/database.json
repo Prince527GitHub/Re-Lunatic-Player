@@ -1,0 +1,11 @@
+{
+  "volume": "0.1",
+  "maximum": "5",
+  "history": [
+    "{\"info\":{\"id\":107653,\"title\":\"Veda\",\"artist\":\"lily-an\",\"album\":\"reunion\",\"cover\":\"LTCD-0014_dc28139923.jpg\",\"year\":\"2011\"},\"time\":{\"duration\":292,\"start\":1720219053000,\"end\":1720219345000}}",
+    "{\"info\":{\"id\":117907,\"title\":\"Dateless 05 〜 二日酔いの同床異夢\",\"artist\":\"凛\",\"album\":\"House set of Dateless Bar \\\"Old Adam\\\"\",\"cover\":\"_1040fba6a7.png\",\"year\":\"2017\"},\"time\":{\"duration\":171,\"start\":1720219332000,\"end\":1720219503000}}",
+    "{\"info\":{\"id\":113897,\"title\":\"Sweet Magic\",\"artist\":\"DiGiTAL WiNG\",\"album\":\"東方 PARTYBOX 2\",\"cover\":\"MBCD-0018_4c5270e370.jpg\",\"year\":\"2016\"},\"time\":{\"duration\":240,\"start\":1720219495000,\"end\":1720219735000}}",
+    "{\"info\":{\"id\":107209,\"title\":\"I.F.S.\",\"artist\":\"Lix\",\"album\":\"SubZero\",\"cover\":\"Lvlt-0010_5f24111f5e.jpg\",\"year\":\"2008\"},\"time\":{\"duration\":430,\"start\":1720219733000,\"end\":1720220163000}}",
+    "{\"info\":{\"id\":101790,\"title\":\"Beat of Spring\",\"artist\":\"Babbe feat. Kasuka\",\"album\":\"Touhou Neverending Spring\",\"cover\":\"_0fb8a9a863.png\",\"year\":\"2014\"},\"time\":{\"duration\":213,\"start\":1720220142000,\"end\":1720220355000}}"
+  ]
+}

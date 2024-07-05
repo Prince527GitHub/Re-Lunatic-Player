@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Settings</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left">
+            <img src="../../img/logo.png" alt="logo">
+            <h1>Re:Lunatic Player</h1>
+            <p>Version 1.0.0</p>
+        </div>
+        <div class="right">
+            <h2>Song Database</h2>
+            <p>Delete entries from the database</p>
+            <button id="all">Delete all entries</button>
+            <button id="today">Delete today's entries</button>
+            <div>
+                <input type="range" name="amount" id="amount" step="1" min="0" max="5" value="1">
+                <span id="amount-value">50</span>
+            </div>
+
+            <h2>Legal + Attributions</h2>
+            <p>Content provided by Gensokyo Radio</p>
+            <p>Re:Lunatic Player created by Prince527</p>
+            <p>Lunatic Player created by Tim Weiß</p>
+            <p>The GR logo is a trademark of Gensokyo Radio</p>
+            <p>Gensokyo Radio is © LunarSpotlight</p>
+            <p>Touhou Project is © Team Shanghai Alice</p>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+
+</body>
+</html>

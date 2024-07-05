@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Details</title>
+</head>
+<body>
+
+    <div class="generic">
+        <img id="cover" src="../../img/undefined.png" alt="cover">
+
+        <div>
+            <h1 id="title"></h1>
+            <p id="details"></p>
+            <p id="duration"></p>
+        </div>
+    </div>
+
+    
+    <div class="metadata">
+        <h2>Metadata</h2>
+
+        <p>Played from: <span id="started"></span></p>
+        <p>Played until: <span id="ended"></span></p>
+        <p>Year: <span id="year"></span></p>
+        <p>Author: <span id="author"></span></p>
+        <p>Album: <span id="album"></span></p>
+    </div>
+
+    <div class="bottom">
+        <button id="copy"><i data-feather="copy"></i></button>
+        <button id="search"><i data-feather="search"></i></button>
+    </div>
+
+    <script src="./js/script.js"></script>
+
+</body>
+</html>
