@@ -58,8 +58,7 @@ app.on("window-all-closed", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-// const database = new (require("./js/database"))(path.join(app.getPath("userData"), "database.json"));
-const database = new (require("./js/database"))(path.join(__dirname, "database.json"));
+const database = new (require("./js/database"))(path.join(app.getPath("userData"), "database.json"));
 const { Client } = require("@xhayper/discord-rpc");
 
 app.on("ready", () => {

@@ -93,3 +93,6 @@ out/
 
 # Disabled Files
 *.d
+
+# Database
+database.json
