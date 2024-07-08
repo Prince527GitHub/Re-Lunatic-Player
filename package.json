@@ -30,6 +30,7 @@
   "license": "AGPL-3.0-only",
   "dependencies": {
     "@xhayper/discord-rpc": "^1.1.2",
+    "electron-forge-maker-appimage": "github:Marcus10110/electron-forge-maker-appimage",
     "electron-squirrel-startup": "^1.0.1"
   }
 }
