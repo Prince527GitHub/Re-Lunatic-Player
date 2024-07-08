@@ -30,6 +30,11 @@ jobs:
       - name: Build App
         run: npm run make
 
+      - name: Publish App
+        run: npm run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload App
         uses: actions/upload-artifact@v4
         with:

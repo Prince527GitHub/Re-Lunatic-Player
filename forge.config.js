@@ -16,6 +16,10 @@ module.exports = {
       platforms: ["darwin"],
     },
     {
+      name: "@electron-forge/maker-dmg",
+      config: {},
+    },
+    {
       name: "@electron-forge/maker-deb",
       config: {},
     },
@@ -27,6 +31,19 @@ module.exports = {
       name: "electron-forge-maker-appimage",
       platforms: ["linux"],
       config: {},
+    },
+  ],
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "Prince527GitHub",
+          name: "Re-Lunatic-Player"
+        },
+        prerelease: false,
+        draft: true
+      },
     },
   ],
   plugins: [
