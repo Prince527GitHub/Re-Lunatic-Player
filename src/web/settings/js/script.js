@@ -1,3 +1,4 @@
+// Delete All Entries
 document.getElementById("all").addEventListener("click", async(event) => {
     event.target.disabled = true;
 
@@ -8,6 +9,7 @@ document.getElementById("all").addEventListener("click", async(event) => {
     event.target.disabled = false;
 });
 
+// Delete Today's Entries
 document.getElementById("today").addEventListener("click", async(event) => {
     event.target.disabled = true;
 
@@ -40,6 +42,7 @@ document.getElementById("today").addEventListener("click", async(event) => {
     event.target.disabled = false;
 });
 
+// Limit History Entries
 const amount = document.getElementById("amount");
 const label = document.getElementById("amount-value");
 
@@ -72,3 +75,49 @@ showLabel();
 function updateLabel() {
     label.innerText = amountLabels[amount.value] || "Error";
 }
+
+// Image Quality
+const image = document.getElementById("image");
+
+async function showImage() {
+    const setting = await window.electron.database.get("image") || "200";
+
+    image.value = setting;
+}
+
+showImage();
+
+image.addEventListener("change", () => {
+    window.electron.database.set("image", image.value);
+
+    window.electron.message.send({
+        main: true,
+        message: {
+            type: "image",
+            value: image.value
+        }
+    });
+});
+
+// Audio Quality
+const audio = document.getElementById("audio");
+
+async function showAudio() {
+    const setting = await window.electron.database.get("audio") || "1";
+
+    audio.value = setting;
+}
+
+showAudio();
+
+audio.addEventListener("change", () => {
+    window.electron.database.set("audio", audio.value);
+
+    window.electron.message.send({
+        main: true,
+        message: {
+            type: "audio",
+            value: audio.value
+        }
+    });
+});

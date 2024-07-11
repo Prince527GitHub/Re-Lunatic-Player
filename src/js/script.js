@@ -8,11 +8,7 @@ const description = document.getElementById("description");
 const current = document.getElementById("current");
 const total = document.getElementById("total");
 
-const audio = new Audio("https://stream.gensokyoradio.net/3/");
-
-audio.play();
-
-audio.volume = 0;
+const audio = new Audio();
 
 // UI
 async function getCurrent() {
@@ -46,7 +42,9 @@ async function setSong() {
 
     currentSong = song;
 
-    cover.src = song.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/500/${song.MISC.ALBUMART}` : "./img/undefined.png";
+    const quality = await window.electron.database.get("image") || "200";
+
+    cover.src = song.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/${quality}/${song.MISC.ALBUMART}` : "./img/undefined.png";
     title.innerText = truncateText(song.SONGINFO.TITLE, 45);
     description.innerText = `${song.SONGTIMES.DURATION}sec. (${song.SONGINFO.ARTIST})`;
 
@@ -116,14 +114,6 @@ async function getVolume() {
     return await window.electron.database.get("volume") || .5;
 }
 
-async function loadVolume() {
-    const level = await getVolume();
-
-    audio.volume = level;
-
-    volume.value = level;
-}
-
 const volume = document.getElementById("volume");
 
 volume.value = 0;
@@ -135,8 +125,6 @@ document.getElementById("button-volume").addEventListener("click", () => {
     if (volume.style.display === "none") volume.style.display = "block";
     else volume.style.display = "none";
 });
-
-loadVolume();
 
 // Stop
 const stopButton = document.getElementById("button-stop");
@@ -163,13 +151,30 @@ stopButton.addEventListener("click", async() => {
     feather.replace();
 });
 
+// Audio
+async function runAudio() {
+    const level = await getVolume();
+
+    const quality = await window.electron.database.get("audio") || "1";
+
+    audio.src = `https://stream.gensokyoradio.net/${quality}/`;
+
+    audio.play();
+
+    audio.volume = level;
+
+    volume.value = level;
+}
+
+runAudio();
+
 // Windows
 document.getElementById("button-settings").addEventListener("click", () => {
     window.electron.window.open({
         file: "web/settings/index.html",
         title: "Settings",
-        width: 569,
-        height: 377,
+        width: 600,
+        height: 520,
     });
 });
 
@@ -180,4 +185,20 @@ document.getElementById("button-history").addEventListener("click", () => {
         width: 436,
         height: 353,
     });
+});
+
+// Events
+window.electron.message.receive((message) => {
+    console.log(message)
+
+    if (message.type === "image") cover.src = currentSong.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/${message.value}/${currentSong.MISC.ALBUMART}` : "./img/undefined.png";
+    else if (message.type === "audio") {
+        audio.src = "";
+
+        audio.load();
+
+        audio.src = `https://stream.gensokyoradio.net/${message.value}/`;
+
+        audio.play();
+    }
 });

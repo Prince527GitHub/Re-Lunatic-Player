@@ -22,6 +22,8 @@ const createWindow = () => {
     }
   });
 
+  mainWindow.isMain = true;
+
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "index.html"));
 
@@ -79,7 +81,7 @@ app.on("ready", () => {
 
     const win = BrowserWindow.fromWebContents(webContents);
 
-    const alreadyOpen = BrowserWindow.getAllWindows().filter(win => win.getTitle() === settings.title)[0];
+    const alreadyOpen = BrowserWindow.getAllWindows().find(win => win.getTitle() === settings.title);
     if (alreadyOpen) return alreadyOpen.focus();
 
     const [x, y] = win.getPosition(); 
@@ -100,13 +102,15 @@ app.on("ready", () => {
       }
     });
 
+    window.isMain = false;
+
     window.loadFile(path.join(__dirname, settings.file));
 
     window.once("ready-to-show", () => settings.data ? window.webContents.send("message-window", settings.data) : null);
   });
 
   ipcMain.on("message-window", (event, settings) => {
-    const window = BrowserWindow.getAllWindows().filter(win => win.getTitle() === settings.title)[0];
+    const window = BrowserWindow.getAllWindows().find(win => settings.title ? win.getTitle() === settings.title : settings.main ? win.isMain === true : false);
     if (!window) return;
 
     window.webContents.send("message-window", settings.message);

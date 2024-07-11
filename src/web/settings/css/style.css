@@ -69,7 +69,7 @@ body {
     scale: 0.99;
 }
 
-.right div {
+.right .range {
     margin: 0;
     padding: 0;
 
@@ -85,19 +85,19 @@ body {
     height: 2rem;
 }
 
-.right div input {
+.right .range input {
     margin: 0;
     padding: 0;
 
+    accent-color: rgb(108, 26, 133);
     box-sizing: border-box;
     margin-bottom: .25rem;
     margin-right: .25rem;
     margin-top: .25rem;
-    accent-color: rgb(108, 26, 133);
     width: 100%;
 }
 
-.right div span {
+.right .range span {
     background-color: rgb(108, 26, 133);
     justify-content: center;
     border-radius: .25rem;
@@ -108,6 +108,58 @@ body {
     display: flex;
     height: 1rem;
     width: 6rem;
+}
+
+.right .select {
+    margin: 0;
+    padding: 0;
+
+    background-color: #fff;
+    border-radius: .25rem;
+    margin-bottom: .25rem;
+    padding-right: .25rem;
+    padding-left: .25rem;
+    flex-direction: row;
+    align-items: center;
+    margin-top: .25rem;
+    display: flex;
+    height: 2rem;
+}
+
+.right .select label {
+    margin: 0;
+    padding: 0;
+
+    margin-right: .25rem;
+    margin-top: .25rem;
+    text-align: center;
+    color: #000;
+    width: 100%;
+    height: 80%;
+}
+
+.right .select select {
+    background-color: rgb(108, 26, 133);
+    transition: all .1s ease;
+    border-radius: .25rem;
+    text-align: center;
+    height: 1.55rem;
+    outline: none;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.right .select select:hover {
+    background-color: rgba(108, 26, 133, 0.95);
+    scale: 1.02;
+}
+
+.right .select select:active {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .right h2 {

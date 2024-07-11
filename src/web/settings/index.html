@@ -12,16 +12,34 @@
         <div class="left">
             <img src="../../img/logo.png" alt="logo">
             <h1>Re:Lunatic Player</h1>
-            <p>Version 1.0.6</p>
+            <p>Version 1.0.7</p>
         </div>
         <div class="right">
             <h2>Song Database</h2>
-            <p>Delete entries from the database</p>
+            <p>Delete and limit entries from the database</p>
             <button id="all">Delete all entries</button>
             <button id="today">Delete today's entries</button>
-            <div>
+            <div class="range">
                 <input type="range" name="amount" id="amount" step="1" min="0" max="5" value="1">
                 <span id="amount-value">50</span>
+            </div>
+
+            <h2>Quality Settings</h2>
+            <p>Modify the quality of the audio and art</p>
+            <div class="select">
+                <label for="image">Image Quality</label>
+                <select name="image" id="image">
+                    <option value="500">Standard (500px)</option>
+                    <option value="200" selected>Mobile (200px)</option>
+                </select>
+            </div>
+            <div class="select">
+                <label for="audio">Audio Quality</label>
+                <select name="audio" id="audio">
+                    <option value="3">Enhanced (256kbps)</option>
+                    <option value="1" selected>Standard (128kbps)</option>
+                    <option value="2">Mobile (64kbps)</option>
+                </select>
             </div>
 
             <h2>Legal + Attributions</h2>
