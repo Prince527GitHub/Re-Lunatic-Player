@@ -43,6 +43,7 @@ module.exports = {
       name: "@pengx17/electron-forge-maker-appimage",
       platforms: ["linux"],
       config: {
+        productName: "Re:Lunatic Player",
         icons: [
           {
             file: "./src/img/logo.png",
