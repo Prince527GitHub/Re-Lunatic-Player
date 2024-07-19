@@ -22,8 +22,7 @@
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
-    "electron": "31.1.0",
-    "electron-forge-maker-appimage": "github:saleae/electron-forge-maker-appimage"
+    "electron": "31.1.0"
   },
   "keywords": [],
   "author": {
@@ -33,6 +32,7 @@
   "license": "AGPL-3.0-only",
   "dependencies": {
     "@xhayper/discord-rpc": "^1.1.2",
+    "electron-forge-maker-appimage": "^25.0.0-alpha.10",
     "electron-squirrel-startup": "^1.0.1"
   }
 }

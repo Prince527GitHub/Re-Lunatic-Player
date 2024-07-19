@@ -17,15 +17,27 @@ module.exports = {
     },
     {
       name: "@electron-forge/maker-dmg",
-      config: {},
+      config: {
+          name: "Re:Lunatic Player"
+      },
     },
     {
       name: "@electron-forge/maker-deb",
-      config: {},
+      config: {
+        options: {
+          productName: "Re:Lunatic Player",
+          icon: "./src/img/logo.png"
+        }
+      },
     },
     {
       name: "@electron-forge/maker-rpm",
-      config: {},
+      config: {
+        options: {
+          productName: "Re:Lunatic Player",
+          icon: "./src/img/logo.png"
+        }
+      },
     },
     {
       name: "electron-forge-maker-appimage",
