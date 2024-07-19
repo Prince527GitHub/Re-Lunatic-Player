@@ -18,7 +18,7 @@ module.exports = {
     {
       name: "@electron-forge/maker-dmg",
       config: {
-          name: "Re:Lunatic Player"
+        name: "Re:Lunatic Player"
       },
     },
     {
@@ -40,9 +40,16 @@ module.exports = {
       },
     },
     {
-      name: "electron-forge-maker-appimage",
+      name: "@pengx17/electron-forge-maker-appimage",
       platforms: ["linux"],
-      config: {},
+      config: {
+        icons: [
+          {
+            file: "./src/img/logo.png",
+            size: 256
+          }
+        ]
+      },
     },
   ],
   publishers: [
