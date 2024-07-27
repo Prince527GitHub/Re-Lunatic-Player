@@ -7,12 +7,14 @@ if (require("electron-squirrel-startup")) {
 }
 
 const createWindow = () => {
+  console.log(process.platform)
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: "Re:Lunatic Player",
     icon: path.join(__dirname, "img/logo.png"),
-    width: 361,
-    height: 238,
+    width: process.platform === "linux" ? 361 : 377,
+    height: process.platform === "linux" ? 238 : 273,
     autoHideMenuBar: true,
     resizable: false,
     fullscreenable: false,
