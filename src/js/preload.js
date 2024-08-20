@@ -3,6 +3,7 @@
 const { contextBridge, ipcRenderer } = require("electron")
 
 contextBridge.exposeInMainWorld("electron", {
+    version: () => ipcRenderer.invoke("version"),
     setTitle: (title) => ipcRenderer.send("set-title", title),
     openLink: (link) => ipcRenderer.send("open-link", link),
     activity: {

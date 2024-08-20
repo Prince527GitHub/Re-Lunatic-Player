@@ -64,6 +64,7 @@ app.on("window-all-closed", () => {
 
 const database = new (require("./js/database"))(path.join(app.getPath("userData"), "database.json"));
 const { Client } = require("@xhayper/discord-rpc");
+const pkg = require("../package.json");
 
 app.on("ready", () => {
   // Database
@@ -76,6 +77,9 @@ app.on("ready", () => {
   ipcMain.handle("find-db", (event, key, value) => database.find(key, value));
   ipcMain.on("delete-db", (event, key) => database.delete(key));
   ipcMain.handle("all-db", (event) => database.all());
+
+  // Version
+  ipcMain.handle("version", (event) => pkg.version);
 
   // Window
   ipcMain.on("open-window", (event, settings) => {

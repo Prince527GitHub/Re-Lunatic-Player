@@ -121,3 +121,12 @@ audio.addEventListener("change", () => {
         }
     });
 });
+
+// Version
+async function showVersion() {
+    const local = await window.electron.version();
+
+    document.getElementById("version").innerText = local;
+}
+
+showVersion();
