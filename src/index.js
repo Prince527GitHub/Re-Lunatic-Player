@@ -6,15 +6,15 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const createWindow = () => {
-  console.log(process.platform)
+const offset = process.platform !== "linux" ? { width: 16, height: 35 } : { width: 0, height: 0 };
 
+const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: "Re:Lunatic Player",
     icon: path.join(__dirname, "img/logo.png"),
-    width: process.platform === "linux" ? 361 : 377,
-    height: process.platform === "linux" ? 238 : 273,
+    width: 361 + offset.width,
+    height: 238 + offset.height,
     autoHideMenuBar: true,
     resizable: false,
     fullscreenable: false,
@@ -86,13 +86,13 @@ app.on("ready", () => {
     const alreadyOpen = BrowserWindow.getAllWindows().find(win => win.getTitle() === settings.title);
     if (alreadyOpen) return alreadyOpen.focus();
 
-    const [x, y] = win.getPosition(); 
+    const [x, y] = win.getPosition();
 
     const window = new BrowserWindow({
       title: settings.title || "Re:Lunatic Player",
       icon: path.join(__dirname, "img/logo.png"),
-      width: settings.width || 361,
-      height: settings.height || 238,
+      width: (settings.width || 361) + offset.width,
+      height: (settings.height || 238) + offset.height,
       autoHideMenuBar: true,
       resizable: false,
       fullscreenable: false,

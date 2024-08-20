@@ -1,7 +1,7 @@
 {
   "name": "re-lunatic-player",
   "productName": "re-lunatic-player",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A program for playback of Gensokyo Radio with easy access to song data, continuation of the Lunatic Player project.",
   "main": "src/index.js",
   "scripts": {
