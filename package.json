@@ -22,7 +22,7 @@
     "@electron-forge/plugin-fuses": "7.5.0",
     "@electron-forge/publisher-github": "^7.5.0",
     "@electron/fuses": "^1.8.0",
-    "@prince527/electron-forge-maker-appimage": "^1.0.1",
+    "@prince527/electron-forge-maker-appimage": "^1.0.4",
     "electron": "^32.1.2"
   },
   "keywords": [],
