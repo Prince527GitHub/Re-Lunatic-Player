@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Dependencies
         if: matrix.os == 'ubuntu-arm64'
-        run: sudo apt install rpm dpkg fakeroot
+        run: echo "${{ secrets.PASSWORD }}" | sudo -S apt install rpm dpkg fakeroot
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
