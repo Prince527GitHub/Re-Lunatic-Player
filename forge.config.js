@@ -5,6 +5,7 @@ module.exports = {
   packagerConfig: {
     name: "Re:Lunatic Player",
     icon: "./src/img/logo",
+    executableName: "Re-Lunatic Player",
     asar: true,
   },
   rebuildConfig: {},
