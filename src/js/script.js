@@ -54,10 +54,17 @@ async function setSong() {
     current.innerText = formatTime(Date.now() - time.current);
     total.innerText = formatTime(time.total - time.current);
 
-    window.electron.setTitle(`Re:LP: ${song.SONGINFO.TITLE} - ${song.SONGTIMES.DURATION}sec.`);
+    window.electron.window.title(`Re:LP: ${song.SONGINFO.TITLE} - ${song.SONGTIMES.DURATION}sec.`);
 
     if (isPaused) window.electron.activity.clear();
     else window.electron.activity.set(song);
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: song.SONGINFO.TITLE,
+        artist: song.SONGINFO.ARTIST,
+        album: song.SONGINFO.ALBUM,
+        artwork: [{ src: cover.src, sizes: `${quality}x${quality}`, type: "image/jpg" }]
+    });
 
     const sample = {
         info: {
@@ -95,7 +102,7 @@ async function setSong() {
         if (history.length > number) window.electron.database.slice("history", -number);
     }
 
-    window.electron.message.send({
+    window.electron.window.message.send({
         title: "Song History",
         message: "refresh"
     });
@@ -104,7 +111,11 @@ async function setSong() {
 setSong();
 
 setInterval(async () => {
-    current.innerText = formatTime(Date.now() - time.current);
+    const elapsed = Date.now() - time.current;
+
+    current.innerText = formatTime(elapsed);
+
+    window.electron.window.progress(Math.min(elapsed / (time.total - time.current), 1));
 
     if (Date.now() >= time.total) await setSong();
 }, 1000);
@@ -188,9 +199,7 @@ document.getElementById("button-history").addEventListener("click", () => {
 });
 
 // Events
-window.electron.message.receive((message) => {
-    console.log(message)
-
+window.electron.window.message.receive((message) => {
     if (message.type === "image") cover.src = currentSong.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/${message.value}/${currentSong.MISC.ALBUMART}` : "./img/undefined.png";
     else if (message.type === "audio") {
         audio.src = "";
@@ -201,4 +210,10 @@ window.electron.message.receive((message) => {
 
         audio.play();
     }
+});
+
+audio.addEventListener("pause", () => {
+    audio.play();
+
+    stopButton.click();
 });

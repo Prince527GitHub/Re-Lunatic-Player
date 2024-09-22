@@ -115,13 +115,6 @@ app.on("ready", () => {
     window.once("ready-to-show", () => settings.data ? window.webContents.send("message-window", settings.data) : null);
   });
 
-  ipcMain.on("message-window", (event, settings) => {
-    const window = BrowserWindow.getAllWindows().find(win => settings.title ? win.getTitle() === settings.title : settings.main ? win.isMain === true : false);
-    if (!window) return;
-
-    window.webContents.send("message-window", settings.message);
-  });
-
   ipcMain.on("close-window", (event) => {
     const webContents = event.sender;
 
@@ -130,10 +123,6 @@ app.on("ready", () => {
     win.close();
   });
 
-  // Browser
-  ipcMain.on("open-link", (event, link) => shell.openExternal(link));
-
-  // Title
   ipcMain.on("set-title", (event, title) => {
     const webContents = event.sender;
 
@@ -141,6 +130,24 @@ app.on("ready", () => {
 
     win.setTitle(title);
   });
+
+  ipcMain.on("set-progress", (event, progress) => {
+    const webContents = event.sender;
+
+    const win = BrowserWindow.fromWebContents(webContents);
+
+    win.setProgressBar(progress);
+  });
+
+  ipcMain.on("message-window", (event, settings) => {
+    const window = BrowserWindow.getAllWindows().find(win => settings.title ? win.getTitle() === settings.title : settings.main ? win.isMain === true : false);
+    if (!window) return;
+
+    window.webContents.send("message-window", settings.message);
+  });
+
+  // Browser
+  ipcMain.on("open-link", (event, link) => shell.openExternal(link));
 
   // Discord RPC
   const client = new Client({ clientId: "1253772057926303804" });

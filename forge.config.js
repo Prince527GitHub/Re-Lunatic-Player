@@ -3,6 +3,8 @@ const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 
 module.exports = {
   packagerConfig: {
+    name: "Re:Lunatic Player",
+    icon: "./src/img/logo",
     asar: true,
   },
   rebuildConfig: {},
@@ -40,7 +42,7 @@ module.exports = {
       },
     },
     {
-      name: "@pengx17/electron-forge-maker-appimage",
+      name: "@prince527/electron-forge-maker-appimage",
       platforms: ["linux"],
       config: {
         productName: "Re:Lunatic Player",

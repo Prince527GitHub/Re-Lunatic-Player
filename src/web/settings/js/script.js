@@ -90,7 +90,7 @@ showImage();
 image.addEventListener("change", () => {
     window.electron.database.set("image", image.value);
 
-    window.electron.message.send({
+    window.electron.window.message.send({
         main: true,
         message: {
             type: "image",
@@ -113,7 +113,7 @@ showAudio();
 audio.addEventListener("change", () => {
     window.electron.database.set("audio", audio.value);
 
-    window.electron.message.send({
+    window.electron.window.message.send({
         main: true,
         message: {
             type: "audio",

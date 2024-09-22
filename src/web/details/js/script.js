@@ -24,10 +24,10 @@ function truncateText(string, length) {
 }
 
 let song = null;
-window.electron.message.receive((message) => {
+window.electron.window.message.receive((message) => {
     song = message;
 
-    window.electron.setTitle(`Details: ${message.time.duration}sec. - ${message.info.title}`);
+    window.electron.window.title(`Details: ${message.time.duration}sec. - ${message.info.title}`);
 
     document.getElementById("cover").src = message.info.album ? `https://gensokyoradio.net/images/albums/500/${message.info.cover}` : "../../img/undefined.png";
     document.getElementById("title").innerText = truncateText(message.info.title, 45);
@@ -42,4 +42,4 @@ window.electron.message.receive((message) => {
 });
 
 document.getElementById("copy").addEventListener("click", () => navigator.clipboard.writeText(song.info.title));
-document.getElementById("search").addEventListener("click", () => window.electron.openLink(`https://gensokyoradio.net/music/album/${song.info.id}/`));
+document.getElementById("search").addEventListener("click", () => window.electron.open(`https://gensokyoradio.net/music/album/${song.info.id}/`));

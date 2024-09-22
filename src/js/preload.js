@@ -4,8 +4,7 @@ const { contextBridge, ipcRenderer } = require("electron")
 
 contextBridge.exposeInMainWorld("electron", {
     version: () => ipcRenderer.invoke("version"),
-    setTitle: (title) => ipcRenderer.send("set-title", title),
-    openLink: (link) => ipcRenderer.send("open-link", link),
+    open: (link) => ipcRenderer.send("open-link", link),
     activity: {
         set: (song) => ipcRenderer.send("set-activity", song),
         clear: () => ipcRenderer.send("clear-activity"),
@@ -13,6 +12,12 @@ contextBridge.exposeInMainWorld("electron", {
     window: {
         open: (settings) => ipcRenderer.send("open-window", settings),
         close: () => ipcRenderer.send("close-window"),
+        title: (title) => ipcRenderer.send("set-title", title),
+        progress: (progress) => ipcRenderer.send("set-progress", progress),
+        message: {
+            send: (settings) => ipcRenderer.send("message-window", settings),
+            receive: (callback) => ipcRenderer.on("message-window", (event, ...args) => callback(...args))
+        }
     },
     database: {
         set: (key, value) => ipcRenderer.send("set-db", key, value),
@@ -24,9 +29,5 @@ contextBridge.exposeInMainWorld("electron", {
         find: (key, value) => ipcRenderer.invoke("find-db", key, value),
         delete: (key) => ipcRenderer.send("delete-db", key),
         all: () => ipcRenderer.invoke("all-db")
-    },
-    message: {
-        send: (settings) => ipcRenderer.send("message-window", settings),
-        receive: (callback) => ipcRenderer.on("message-window", (event, ...args) => callback(...args))
     }
 });

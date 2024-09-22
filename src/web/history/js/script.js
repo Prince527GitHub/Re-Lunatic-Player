@@ -77,7 +77,7 @@ button.addEventListener("click", () => {
     showSongs();
 });
 
-window.electron.message.receive(() => button.click());
+window.electron.window.message.receive(() => button.click());
 
 // Details
 async function showDetails(start, end) {
