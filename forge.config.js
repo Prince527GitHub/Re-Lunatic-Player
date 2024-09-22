@@ -24,24 +24,24 @@ module.exports = {
         name: "Re:Lunatic Player"
       },
     },
-    // {
-    //   name: "@electron-forge/maker-deb",
-    //   config: {
-    //     options: {
-    //       productName: "Re:Lunatic Player",
-    //       icon: "./src/img/logo.png"
-    //     }
-    //   },
-    // },
-    // {
-    //   name: "@electron-forge/maker-rpm",
-    //   config: {
-    //     options: {
-    //       productName: "Re:Lunatic Player",
-    //       icon: "./src/img/logo.png"
-    //     }
-    //   },
-    // },
+    {
+      name: "@electron-forge/maker-deb",
+      config: {
+        options: {
+          productName: "Re:Lunatic Player",
+          icon: "./src/img/logo.png"
+        }
+      },
+    },
+    {
+      name: "@electron-forge/maker-rpm",
+      config: {
+        options: {
+          productName: "Re:Lunatic Player",
+          icon: "./src/img/logo.png"
+        }
+      },
+    },
     {
       name: "@prince527/electron-forge-maker-appimage",
       platforms: ["linux"],
