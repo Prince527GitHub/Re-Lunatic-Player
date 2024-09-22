@@ -23,6 +23,10 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Install Dependencies
+        if: matrix.os == 'ubuntu-arm64'
+        run: sudo apt install rpm dpkg fakeroot
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
