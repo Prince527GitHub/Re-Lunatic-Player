@@ -3,9 +3,10 @@ const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 
 module.exports = {
   packagerConfig: {
+    executableName: "re-lunatic-player",
+    productName: "Re:Lunatic Player",
     name: "Re:Lunatic Player",
     icon: "./src/img/logo",
-    executableName: "re-lunatic-player",
     asar: true,
   },
   rebuildConfig: {},
@@ -26,21 +27,11 @@ module.exports = {
     },
     {
       name: "@electron-forge/maker-deb",
-      config: {
-        options: {
-          productName: "Re:Lunatic Player",
-          icon: "./src/img/logo.png"
-        }
-      },
+      config: {},
     },
     {
       name: "@electron-forge/maker-rpm",
-      config: {
-        options: {
-          productName: "Re:Lunatic Player",
-          icon: "./src/img/logo.png"
-        }
-      },
+      config: {},
     },
     {
       name: "@prince527/electron-forge-maker-appimage",
