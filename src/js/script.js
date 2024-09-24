@@ -68,7 +68,7 @@ async function setSong() {
 
     const sample = {
         info: {
-            id: song.SONGDATA.SONGID,
+            id: song.SONGDATA.ALBUMID,
             title: song.SONGINFO.TITLE,
             artist: song.SONGINFO.ARTIST,
             album: song.SONGINFO.ALBUM,

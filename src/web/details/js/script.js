@@ -29,7 +29,7 @@ window.electron.window.message.receive((message) => {
 
     window.electron.window.title(`Details: ${message.time.duration}sec. - ${message.info.title}`);
 
-    document.getElementById("cover").src = message.info.album ? `https://gensokyoradio.net/images/albums/500/${message.info.cover}` : "../../img/undefined.png";
+    document.getElementById("cover").src = message.info.cover ? `https://gensokyoradio.net/images/albums/500/${message.info.cover}` : "../../img/undefined.png";
     document.getElementById("title").innerText = truncateText(message.info.title, 45);
     document.getElementById("details").innerText = `${message.time.duration}sec. (${message.info.artist})`;
     document.getElementById("duration").innerText = formatTime(message.time.duration);
