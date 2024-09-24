@@ -163,7 +163,8 @@ app.on("ready", () => {
       largeImageKey: song.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/500/${song.MISC.ALBUMART}` : "undefined",
       largeImageText: song.SONGINFO.ALBUM,
       smallImageKey: "logo",
-      smallImageText: "Gensokyo Radio"
+      smallImageText: "Gensokyo Radio",
+      type: 2
     });
   }
 
