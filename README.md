@@ -6,4 +6,4 @@
 
 <h3 align="center">Re:Lunatic Player</h3>
 
-<p align="center">A program for playback of Gensokyo Radio with easy access to song data, continuation of the Lunatic Player project.</p>
+<p align="center">A program for playback of Gensokyo Radio with easy access to song data, continuation of the <a href="https://github.com/timweiss/LunaticPlayer">Lunatic Player project</a>.</p>
