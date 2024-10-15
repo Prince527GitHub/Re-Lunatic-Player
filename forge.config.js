@@ -34,7 +34,7 @@ module.exports = {
       config: {},
     },
     {
-      name: "@prince527/electron-forge-maker-appimage",
+      name: "@forkprince/electron-forge-maker-appimage",
       platforms: ["linux"],
       config: {
         productName: "Re:Lunatic Player",
