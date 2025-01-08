@@ -28,6 +28,10 @@ jobs:
         with:
           node-version: 'lts/*'
 
+      - name: Install dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: apt install flatpak-builder eu-strip -y
+
       - name: Install Packages
         run: npm i
 
