@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         if: matrix.os == 'ubuntu-latest'
-        run: apt install flatpak-builder eu-strip -y
+        run: sudo apt install flatpak-builder eu-strip -y
 
       - name: Install Packages
         run: npm i
