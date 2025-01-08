@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt install flatpak-builder elfutils -y
+        run: sudo apt install flatpak flatpak-builder elfutils -y
 
       - name: Install Packages
         run: npm i
