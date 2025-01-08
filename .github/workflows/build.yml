@@ -28,9 +28,12 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Install dependencies
+      - name: Install flatpak dependencies
         if: matrix.os == 'ubuntu-latest'
-        run: sudo apt install flatpak flatpak-builder elfutils -y
+        run: |
+          sudo apt install flatpak flatpak-builder elfutils -y
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install flathub org.freedesktop.Platform/x86_64/19.08 org.freedesktop.Sdk/x86_64/19.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
 
       - name: Install Packages
         run: npm i
