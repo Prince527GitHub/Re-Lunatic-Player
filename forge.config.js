@@ -34,6 +34,14 @@ module.exports = {
       config: {},
     },
     {
+      name: "@electron-forge/maker-flatpak",
+      config: {
+        options: {
+          categories: ["Audio"]
+        }
+      }
+    },
+    {
       name: "@forkprince/electron-forge-maker-appimage",
       platforms: ["linux"],
       config: {
