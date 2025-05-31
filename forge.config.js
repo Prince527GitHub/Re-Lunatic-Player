@@ -1,15 +1,12 @@
 const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 const { FusesPlugin } = require("@electron-forge/plugin-fuses");
-const path = require("path");
-
-const icon = path.join(__dirname, "src/img/logo");
 
 module.exports = {
   packagerConfig: {
     executableName: "re-lunatic-player",
     productName: "Re:Lunatic Player",
     name: "Re:Lunatic Player",
-    icon: icon,
+    icon: "./src/img/logo",
     asar: true,
   },
   rebuildConfig: {},
@@ -18,13 +15,13 @@ module.exports = {
       name: "@electron-forge/maker-squirrel",
       config: {
         iconUrl: "https://api.serversmp.xyz/upload/683b06cebf4051700ba56804.ico",
-        setupIcon: `${icon}.ico`
+        setupIcon: "./src/img/logo.ico"
       },
     },
     {
       name: "@electron-forge/maker-wix",
       config: {
-        icon: `${icon}.ico`
+        icon: "./src/img/logo.ico"
       },
     },
     {
@@ -35,19 +32,19 @@ module.exports = {
       name: "@electron-forge/maker-dmg",
       config: {
         name: "Re:Lunatic Player",
-        icon: `${icon}.incs`
+        icon: "src/img/logo.incs"
       },
     },
     {
       name: "@electron-forge/maker-deb",
       config: {
-        icon: `${icon}.png`
+        icon: "./src/img/logo.png"
       },
     },
     {
       name: "@electron-forge/maker-rpm",
       config: {
-        icon: `${icon}.png`
+        icon: "./src/img/logo.png"
       },
     },
     {
@@ -55,7 +52,7 @@ module.exports = {
       config: {
         options: {
           categories: ["Audio"],
-          icon: `${icon}.png`
+          icon: "./src/img/logo.png"
         }
       }
     },
@@ -66,7 +63,7 @@ module.exports = {
         productName: "Re:Lunatic Player",
         icons: [
           {
-            file: `${icon}.png`,
+            file: "./src/img/logo.png",
             size: 256
           }
         ]
