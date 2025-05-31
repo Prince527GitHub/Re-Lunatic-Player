@@ -22,15 +22,11 @@ module.exports = {
         name: "ReLunaticPlayer"
       },
     },
-    // {
-    //   name: "@electron-forge/maker-wix",
-    //   config: {
-    //     icon: `${icon}.ico`
-    //   },
-    // },
     {
-      name: "@electron-forge/maker-appx",
-      config: {},
+      name: "@electron-forge/maker-wix",
+      config: {
+        icon: `${icon}.ico`
+      },
     },
     {
       name: "@electron-forge/maker-zip",
