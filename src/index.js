@@ -2,9 +2,7 @@ const { app, BrowserWindow, ipcMain, shell } = require("electron");
 const path = require("path");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
+if (require("electron-squirrel-startup")) app.quit();
 
 const offset = process.platform !== "linux" ? { width: 16, height: 35 } : { width: 0, height: 0 };
 
@@ -34,6 +32,9 @@ const createWindow = () => {
 
   mainWindow.once("close", () => app.quit());
 };
+
+// Set the AppUserModelId for Windows
+app.setAppUserModelId("com.squirrel.ReLunaticPlayer.ReLunaticPlayer");
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

@@ -18,7 +18,8 @@ module.exports = {
       name: "@electron-forge/maker-squirrel",
       config: {
         iconUrl: "https://api.serversmp.xyz/upload/683b06cebf4051700ba56804.ico",
-        setupIcon: `${icon}.ico`
+        setupIcon: `${icon}.ico`,
+        name: "ReLunaticPlayer"
       },
     },
     {
