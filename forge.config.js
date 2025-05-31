@@ -13,7 +13,16 @@ module.exports = {
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
-      config: {},
+      config: {
+        iconUrl: "https://api.serversmp.xyz/upload/683b06cebf4051700ba56804.ico",
+        setupIcon: "./src/img/logo.ico"
+      },
+    },
+    {
+      name: "@electron-forge/maker-wix",
+      config: {
+        icon: "./src/img/logo.ico"
+      },
     },
     {
       name: "@electron-forge/maker-zip",
@@ -22,22 +31,28 @@ module.exports = {
     {
       name: "@electron-forge/maker-dmg",
       config: {
-        name: "Re:Lunatic Player"
+        name: "Re:Lunatic Player",
+        icon: "./src/img/logo.incs"
       },
     },
     {
       name: "@electron-forge/maker-deb",
-      config: {},
+      config: {
+        icon: "./src/img/logo.png"
+      },
     },
     {
       name: "@electron-forge/maker-rpm",
-      config: {},
+      config: {
+        icon: "./src/img/logo.png"
+      },
     },
     {
       name: "@electron-forge/maker-flatpak",
       config: {
         options: {
-          categories: ["Audio"]
+          categories: ["Audio"],
+          icon: "./src/img/logo.png"
         }
       }
     },
