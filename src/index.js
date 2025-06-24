@@ -157,12 +157,12 @@ app.on("ready", () => {
     if (!client.user) return;
 
     client.user.setActivity({
-      details: song.SONGINFO.TITLE,
-      state: song.SONGINFO.ARTIST,
-      startTimestamp: new Date(song.SONGTIMES.SONGSTART * 1000),
-      endTimestamp: new Date(song.SONGTIMES.SONGEND * 1000),
-      largeImageKey: song.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/500/${song.MISC.ALBUMART}` : "undefined",
-      largeImageText: song.SONGINFO.ALBUM,
+      details: song.title,
+      state: song.artist,
+      startTimestamp: new Date(song.current),
+      endTimestamp: new Date(song.total),
+      largeImageKey: song.albumart ? `https://gensokyoradio.net/images/albums/500/${song.albumart}` : "undefined",
+      largeImageText: song.album,
       smallImageKey: "logo",
       smallImageText: "Gensokyo Radio",
       type: 2

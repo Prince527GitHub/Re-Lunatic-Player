@@ -34,51 +34,89 @@ function truncateText(string, length) {
     return string.length > length ? `${string.substring(0, length)}...` : string;
 }
 
-let currentSong = undefined;
+let currentSong = { current: 0, total: 0 };
 let isPaused = false;
 
-async function setSong() {
-    const song = await getCurrent();
+// Connection
+async function init() {
+    const socket = new WebSocket("wss://gensokyoradio.net/wss");
+
+    socket.addEventListener("open", (event) => {
+        console.log("Connected to Gensokyo Radio!");
+
+        socket.send(JSON.stringify({ message: "grInitialConnection" }));
+
+        console.log("Sent inital request");
+    });
+
+    let id;
+    socket.addEventListener("message", (event) => {
+        const data = JSON.parse(event.data);
+
+        console.log("Message from GR: ", data);
+
+        switch (data.message) {
+            case "welcome":
+                console.log("Saved ID: ", data.id);
+                id = data.id;
+                break;
+            case "ping":
+                console.log("Ping -> Pong");
+                socket.send(JSON.stringify({ message: "pong", id }));
+                break;
+        }
+
+        if (data?.album) setSong(data);
+    });
+
+    socket.addEventListener("close", init);
+}
+
+init();
+
+async function setSong(song) {
+    const quality = await window.electron.database.get("image") || "200";
+
+    song.albumart = song.albumart?.split("/")?.pop();
+
+    cover.src = song.albumart ? `https://gensokyoradio.net/images/albums/${quality}/${song.albumart}` : "./img/undefined.png";
+    title.innerText = truncateText(song.title, 45);
+    description.innerText = `${song.duration}sec. (${truncateText(song.artist, 7)})`; 
+
+    song.current = Date.now() - song.played * 1000;
+    song.total = song.current + song.duration * 1000;
+
+    total.innerText = formatTime(song.total - song.current);
 
     currentSong = song;
 
-    const quality = await window.electron.database.get("image") || "200";
-
-    cover.src = song.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/${quality}/${song.MISC.ALBUMART}` : "./img/undefined.png";
-    title.innerText = truncateText(song.SONGINFO.TITLE, 45);
-    description.innerText = `${song.SONGTIMES.DURATION}sec. (${song.SONGINFO.ARTIST})`;
-
-    time.current = song.SONGTIMES.SONGSTART * 1000;
-    time.total = song.SONGTIMES.SONGEND * 1000;
-
-    current.innerText = formatTime(Date.now() - time.current);
-    total.innerText = formatTime(time.total - time.current);
-
-    window.electron.window.title(`Re:LP: ${song.SONGINFO.TITLE} - ${song.SONGTIMES.DURATION}sec.`);
+    window.electron.window.title(`Re:LP: ${song.title} - ${song.duration}sec.`);
 
     if (isPaused) window.electron.activity.clear();
     else window.electron.activity.set(song);
 
     navigator.mediaSession.metadata = new MediaMetadata({
-        title: song.SONGINFO.TITLE,
-        artist: song.SONGINFO.ARTIST,
-        album: song.SONGINFO.ALBUM,
+        title: song.title,
+        artist: song.artist,
+        album: song.album,
         artwork: [{ src: cover.src, sizes: `${quality}x${quality}`, type: "image/jpg" }]
     });
 
+    // Duplicate tracks are being stored in the history
+    // (its related to time)
     const sample = {
         info: {
-            id: song.SONGDATA.ALBUMID,
-            title: song.SONGINFO.TITLE,
-            artist: song.SONGINFO.ARTIST,
-            album: song.SONGINFO.ALBUM,
-            cover: song.MISC.ALBUMART,
-            year: song.SONGINFO.YEAR
+            id: song.albumid,
+            title: song.title,
+            artist: song.artist,
+            album: song.album,
+            cover: song.albumart,
+            year: song.year
         },
         time: {
-            duration: song.SONGTIMES.DURATION,
-            start: song.SONGTIMES.SONGSTART * 1000,
-            end: song.SONGTIMES.SONGEND * 1000
+            duration: song.duration,
+            start: song.current,
+            end: song.total
         }
     }
 
@@ -108,16 +146,12 @@ async function setSong() {
     });
 }
 
-setSong();
-
 setInterval(async () => {
-    const elapsed = Date.now() - time.current;
+    const elapsed = Date.now() - currentSong.current;
 
     current.innerText = formatTime(elapsed);
 
-    window.electron.window.progress(Math.min(elapsed / (time.total - time.current), 1));
-
-    if (Date.now() >= time.total) await setSong();
+    window.electron.window.progress(Math.min(elapsed / (currentSong.total - currentSong.current), 1));
 }, 1000);
 
 // Volume
@@ -200,7 +234,7 @@ document.getElementById("button-history").addEventListener("click", () => {
 
 // Events
 window.electron.window.message.receive((message) => {
-    if (message.type === "image") cover.src = currentSong.MISC.ALBUMART ? `https://gensokyoradio.net/images/albums/${message.value}/${currentSong.MISC.ALBUMART}` : "./img/undefined.png";
+    if (message.type === "image") cover.src = currentSong.albumart ? `https://gensokyoradio.net/images/albums/${message.value}/${currentSong.albumart}` : "./img/undefined.png";
     else if (message.type === "audio") {
         audio.src = "";
 
