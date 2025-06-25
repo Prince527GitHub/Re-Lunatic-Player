@@ -34,6 +34,15 @@ function truncateText(string, length) {
     return string.length > length ? `${string.substring(0, length)}...` : string;
 }
 
+function cleanTime(time) {
+    const rounded = new Date(time);
+
+    rounded.setSeconds(0);
+    rounded.setMilliseconds(0);
+
+    return rounded.getTime();
+}
+
 let currentSong = { current: 0, total: 0 };
 let isPaused = false;
 
@@ -114,9 +123,9 @@ async function setSong(song) {
             year: song.year
         },
         time: {
-            duration: song.duration,
-            start: song.current,
-            end: song.total
+            duration: cleanTime(song.duration),
+            start: cleanTime(song.current),
+            end: cleanTime(song.total)
         }
     }
 
