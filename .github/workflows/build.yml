@@ -4,6 +4,8 @@ on:
   push:
     paths-ignore:
       - 'README.md'
+      - 'flake.lock'
+      - 'flake.nix'
     branches:
       - main
   workflow_dispatch:

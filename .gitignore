@@ -96,3 +96,6 @@ out/
 
 # Database
 database.json
+
+# pnpm
+.pnpm-store

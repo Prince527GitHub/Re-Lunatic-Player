@@ -63,7 +63,6 @@ module.exports = {
     },
     {
       name: "@forkprince/electron-forge-maker-appimage",
-      platforms: ["linux"],
       config: {
         productName: "Re:Lunatic Player",
         icons: [
@@ -74,6 +73,9 @@ module.exports = {
         ]
       },
     },
+    {
+      name: "@forkprince/electron-forge-maker-targz",
+    }
   ],
   publishers: [
     {
