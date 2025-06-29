@@ -162,3 +162,12 @@ button:hover {
 button:active {
   transform: scale(0.9);
 }
+
+#cover {
+  transition: all .05s ease;
+  cursor: pointer;
+}
+
+.blur {
+  filter: blur(10px);
+}

@@ -25,12 +25,14 @@ module.exports = {
     {
       name: "@electron-forge/maker-wix",
       config: {
+        exe: "re-lunatic-player.exe",
+        shortName: "ReLunaticPlayer",
+        manufacturer: "Prince527",
         icon: `${icon}.ico`
       },
     },
     {
-      name: "@electron-forge/maker-zip",
-      platforms: ["darwin"],
+      name: "@electron-forge/maker-zip"
     },
     {
       name: "@electron-forge/maker-dmg",

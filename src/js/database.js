@@ -10,7 +10,7 @@ class database {
         try {
             const data = fs.readFileSync(this.filePath, 'utf8');
             return JSON.parse(data);
-        } catch (error) {
+        } catch {
             return {};
         }
     }

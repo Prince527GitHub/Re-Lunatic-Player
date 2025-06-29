@@ -22,7 +22,7 @@ async function getSongs() {
 }
 
 function renderSongs(songs) {
-    const html = songs.map((song, index) => {
+    const html = songs.map(song => {
         song = JSON.parse(song);
 
         return /* html */ `
@@ -80,25 +80,25 @@ button.addEventListener("click", () => {
 window.electron.window.message.receive(() => button.click());
 
 // Details
-async function showDetails(start, end) {
-    start = Number(start);
-    end = Number(end);
+// async function showDetails(start, end) {
+//     start = Number(start);
+//     end = Number(end);
 
-    const data = await window.electron.database.get("history");
+//     const data = await window.electron.database.get("history");
 
-    const selected = data.find(song => {
-        song = JSON.parse(song);
+//     const selected = data.find(song => {
+//         song = JSON.parse(song);
 
-        return song.time.start === start && song.time.end === end;
-    });
+//         return song.time.start === start && song.time.end === end;
+//     });
 
-    const parsed = JSON.parse(selected);
+//     const parsed = JSON.parse(selected);
 
-    window.electron.window.open({
-        file: `web/details/index.html`,
-        title: `Details: ${parsed.time.duration}sec. - ${parsed.info.title}`,
-        width: 346,
-        height: 328,
-        data: parsed
-    });
-}
+//     window.electron.window.open({
+//         file: `web/details/index.html`,
+//         title: `Details: ${parsed.time.duration}sec. - ${parsed.info.title}`,
+//         width: 346,
+//         height: 328,
+//         data: parsed
+//     });
+// }

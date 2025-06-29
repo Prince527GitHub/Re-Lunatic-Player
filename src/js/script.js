@@ -11,17 +11,6 @@ const total = document.getElementById("total");
 const audio = new Audio();
 
 // UI
-async function getCurrent() {
-    const current = await (await fetch("https://gensokyoradio.net/api/station/playing/")).json();
-
-    return current;
-}
-
-let time = {
-    current: 0,
-    total: 0
-}
-
 function formatTime(ms) {
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
@@ -50,7 +39,7 @@ let isPaused = false;
 async function init() {
     const socket = new WebSocket("wss://gensokyoradio.net/wss");
 
-    socket.addEventListener("open", (event) => {
+    socket.addEventListener("open", () => {
         console.log("Connected to Gensokyo Radio!");
 
         socket.send(JSON.stringify({ message: "grInitialConnection" }));
@@ -84,7 +73,7 @@ async function init() {
 init();
 
 async function setSong(song) {
-    const quality = await window.electron.database.get("image") || "200";
+    const quality = await getQuality();
 
     song.albumart = song.albumart?.split("/")?.pop();
 
@@ -101,18 +90,11 @@ async function setSong(song) {
 
     window.electron.window.title(`Re:LP: ${song.title} - ${song.duration}sec.`);
 
+    updateMetadata(song, quality);
+
     if (isPaused) window.electron.activity.clear();
     else window.electron.activity.set(song);
 
-    navigator.mediaSession.metadata = new MediaMetadata({
-        title: song.title,
-        artist: song.artist,
-        album: song.album,
-        artwork: [{ src: cover.src, sizes: `${quality}x${quality}`, type: "image/jpg" }]
-    });
-
-    // Duplicate tracks are being stored in the history
-    // (its related to time)
     const sample = {
         info: {
             id: song.albumid,
@@ -162,6 +144,45 @@ setInterval(async () => {
 
     window.electron.window.progress(Math.min(elapsed / (currentSong.total - currentSong.current), 1));
 }, 1000);
+
+// Image Quality
+async function getQuality() {
+    return await window.electron.database.get("image") || "200";
+}
+
+// Metadata
+async function updateMetadata(song, quality) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: song.title,
+        artist: song.artist,
+        album: song.album,
+        artwork: !await getBlur() ? [{ src: cover.src, sizes: `${quality}x${quality}`, type: "image/jpg" }] : []
+    });
+}
+
+// Blur
+async function getBlur() {
+    return await window.electron.database.get("blur") || false;
+}
+
+async function applyBlur() {
+    cover.classList.toggle("blur", await getBlur());
+}
+
+async function toggleBlur() {
+    const blur = !await getBlur();
+
+    await window.electron.database.set("blur", blur);
+
+    applyBlur();
+
+    updateMetadata(currentSong, await getQuality());
+}
+
+cover.addEventListener("load", applyBlur);
+cover.addEventListener("click", toggleBlur);
+cover.addEventListener("error", () => cover.src = "./img/undefined.png");
+
 
 // Volume
 async function getVolume() {

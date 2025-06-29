@@ -77,10 +77,10 @@ app.on("ready", () => {
   ipcMain.on("slice-db", (event, key, start, end) => database.slice(key, start, end));
   ipcMain.handle("find-db", (event, key, value) => database.find(key, value));
   ipcMain.on("delete-db", (event, key) => database.delete(key));
-  ipcMain.handle("all-db", (event) => database.all());
+  ipcMain.handle("all-db", () => database.all());
 
   // Version
-  ipcMain.handle("version", (event) => pkg.version);
+  ipcMain.handle("version", () => pkg.version);
 
   // Window
   ipcMain.on("open-window", (event, settings) => {
@@ -172,12 +172,12 @@ app.on("ready", () => {
   ipcMain.on("set-activity", (event, song) => {
     try {
       setActivity(song);
-    } catch (error) {
+    } catch {
       setTimeout(() => setActivity(song), 15000);
     }
   });
 
-  ipcMain.on("clear-activity", (event, song) => {
+  ipcMain.on("clear-activity", () => {
     if (!client.user) return;
 
     client.user.clearActivity();
