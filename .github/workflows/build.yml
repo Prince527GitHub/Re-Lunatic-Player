@@ -48,9 +48,9 @@ jobs:
           sudo flatpak install flathub org.freedesktop.Platform/x86_64/19.08 org.freedesktop.Sdk/x86_64/19.08 org.electronjs.Electron2.BaseApp/x86_64/stable -y
 
       - name: Install Packages
-        run: npm i
+        run: pnpm i
 
       - name: Publish App
-        run: npm run publish
+        run: pnpm run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
