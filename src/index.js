@@ -154,7 +154,7 @@ app.on("ready", () => {
   const client = new Client({ clientId: "1253772057926303804" });
 
   function setActivity(song) {
-    if (!client.user) return;
+    if (!client.user || !database.get("rpc")) return;
 
     client.user.setActivity({
       details: song.title,

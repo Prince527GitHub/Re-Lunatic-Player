@@ -130,3 +130,28 @@ async function showVersion() {
 }
 
 showVersion();
+
+// Discord Rich Presence
+const rpc = document.getElementById("rpc");
+
+rpc.addEventListener("click", async () => {
+    rpc.disabled = true;
+
+    const setting = await window.electron.database.get("rpc");
+
+    window.electron.database.set("rpc", !setting);
+
+    if (setting) await window.electron.activity.clear();
+
+    rpc.innerText = setting ? "Enable" : "Disable";
+
+    rpc.disabled = false;
+});
+
+async function showRPC() {
+    const setting = await window.electron.database.get("rpc") || true;
+
+    rpc.innerText = setting ? "Disable" : "Enable";
+}
+
+showRPC();
