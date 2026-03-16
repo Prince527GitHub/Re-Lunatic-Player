@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest, windows-11-arm]
 
     permissions: write-all
 
@@ -60,7 +60,7 @@ jobs:
         run: pnpm run make
 
       - name: Rename artifacts (Windows)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' || matrix.os == 'windows-11-arm'
         shell: pwsh
         run: |
           Get-ChildItem -Path "out/make" -Recurse -File | ForEach-Object {
@@ -87,10 +87,10 @@ jobs:
           done
 
       - name: Upload Artifacts (Windows)
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' || matrix.os == 'windows-11-arm'
         uses: actions/upload-artifact@v4
         with:
-          name: windows-build
+          name: windows-build-${{ matrix.os }}
           path: out/make/**/*
           if-no-files-found: warn
 
