@@ -10,13 +10,18 @@
 <body>
 
   <div class="top">
+    <div id="bg-blur" class="bg-blur"></div>
+    <div class="bg-overlay"></div>
+
     <img id="cover" src="./img/undefined.png" alt="cover">
 
-    <div>
+    <div class="info">
       <h1 id="title">Loading...</h1>
       <p id="description">0sec. (Loading...)</p>
 
-      <div>
+      <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+      <div class="time-row">
         <p id="current">00:00</p>
         <p id="total">00:00</p>
       </div>

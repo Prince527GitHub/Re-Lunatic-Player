@@ -4,7 +4,8 @@ const path = require("path");
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) app.quit();
 
-const offset = process.platform !== "linux" ? { width: 16, height: 35 } : { width: 0, height: 0 };
+// NOTE: I'm keeping the offsets just in case I need to change them in the future.
+const offset = process.platform !== "linux" ? { width: 0, height: 0 } : { width: 0, height: 0 };
 
 const createWindow = () => {
   // Create the browser window.
@@ -13,10 +14,14 @@ const createWindow = () => {
     icon: path.join(__dirname, "img/logo.png"),
     width: 361 + offset.width,
     height: 238 + offset.height,
+    minWidth: 320,
+    minHeight: 200,
+    maxWidth: 800,
+    maxHeight: 600,
     autoHideMenuBar: true,
-    resizable: false,
+    resizable: true,
     fullscreenable: false,
-    maximizable: false,
+    maximizable: true,
     webPreferences: {
       preload: path.join(__dirname, "js/preload.js"),
     }
@@ -98,10 +103,14 @@ app.on("ready", () => {
       icon: path.join(__dirname, "img/logo.png"),
       width: (settings.width || 361) + offset.width,
       height: (settings.height || 238) + offset.height,
+      minWidth: settings.minWidth || 400,
+      minHeight: settings.minHeight || 300,
+      maxWidth: settings.maxWidth || 1200,
+      maxHeight: settings.maxHeight || 800,
       autoHideMenuBar: true,
-      resizable: false,
+      resizable: true,
       fullscreenable: false,
-      maximizable: false,
+      maximizable: true,
       x: x + 24,
       y: y + 24,
       webPreferences: {
@@ -154,7 +163,7 @@ app.on("ready", () => {
   const client = new Client({ clientId: "1253772057926303804" });
 
   function setActivity(song) {
-    if (!client.user || !database.get("rpc")) return;
+    if (!client.user || !(database.get("rpc") ?? true)) return;
 
     client.user.setActivity({
       details: song.title,

@@ -1,74 +1,135 @@
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(84, 21, 103);
 }
 
 .top {
-  grid-template-columns: 1fr 1fr;
-  padding-top: .75rem;
+  grid-template-columns: auto 1fr;
+  align-items: center;
   display: grid;
   color: #fff;
-  gap: 1rem;
+  gap: clamp(0.75rem, 3vw, 2rem);
+  padding: clamp(1rem, 3vh, 2rem) clamp(1.5rem, 5vw, 4rem);
+  padding-bottom: clamp(3.5rem, 9vh, 4.5rem);
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.top::before {
-  content: "";
+.bg-blur {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://gensokyoradio.net/images/albums/500/_34d7c18cf9.png");
-  filter: blur(10px);
+  top: -20px;
+  left: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(18px) saturate(1.2);
   z-index: -2;
+  transition: background-image 0.4s ease;
 }
 
-.top::after {
-  content: "";
+.bg-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(84, 21, 103, 0.5);
+  background: linear-gradient(135deg, rgba(84, 21, 103, 0.6) 0%, rgba(84, 21, 103, 0.4) 100%);
   z-index: -1;
 }
 
 .top img {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  margin-left: .3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   aspect-ratio: 1/1;
-  width: 93%;
+  object-fit: cover;
+  border-radius: 6px;
+  height: auto;
+  width: 100%;
+  max-width: min(calc(100vh - 5rem - clamp(1rem, 4vh, 2rem)), 35vw, 320px);
+  min-width: 80px;
 }
 
-.top div {
+.top .info {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding-right: .3rem;
+  padding-right: clamp(0.3rem, 1vw, 0.8rem);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .top h1,
 .top p {
-  word-break: break-all;
+  word-break: break-word;
+  overflow-wrap: break-word;
   padding: 0;
   margin: 0;
 }
 
 .top h1 {
-  font-size: 1.25rem;
+  font-size: clamp(0.9rem, 3vw, 1.5rem);
+  line-height: 1.3;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .top p {
-  font-size: .8rem;
+  font-size: clamp(0.65rem, 2vw, 0.9rem);
+  line-height: 1.4;
+  opacity: 0.85;
 }
 
-.top div div {
+.time-row {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
   width: 100%;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.4rem;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  transition: width 1s linear;
 }
 
 .top button {
@@ -82,19 +143,26 @@ body {
   border: none;
   padding: 0;
   margin: 0;
-
   padding-top: .1rem;
+  flex-shrink: 0;
+}
+
+.top button i {
+  width: clamp(16px, 4vw, 24px);
+  height: clamp(16px, 4vw, 24px);
 }
 
 .bottom {
-  background-color: rgba(255, 255, 255, 0.75); 
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   grid-template-columns: 1fr 1fr;
   position: absolute;
   display: grid;
   color: #fff;
-  height: 3rem;
+  height: clamp(2.5rem, 8vh, 3.5rem);
   width: 100%;
-  gap: 1.5rem;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
   padding: 0;
   margin: 0;
   bottom: 0;
@@ -104,20 +172,20 @@ body {
 .bottom .left {
   align-items: center;
   justify-content: left;
-  margin-left: .5rem;
+  margin-left: clamp(0.3rem, 1vw, 0.8rem);
   display: flex;
-  gap: 1rem;
+  gap: clamp(0.5rem, 2vw, 1.2rem);
 }
 
 .bottom .left input {
-  background: rgba(84, 21, 103, 0.5);
+  background: rgba(84, 21, 103, 0.3);
   -webkit-appearance: none;
-  border-radius: .25rem;
+  border-radius: 10px;
   appearance: none;
   outline: none;
-  height: 5px;
+  height: 4px;
   width: 100%;
-
+  max-width: 150px;
   margin: 0;
   padding: 0;
   margin-bottom: .15rem;
@@ -129,14 +197,22 @@ body {
   border-radius: 50%;
   appearance: none;
   cursor: pointer;
-  height: 15px;
-  width: 15px;
+  height: 14px;
+  width: 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease;
+}
+
+.bottom .left input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
 }
 
 .bottom .right {
   justify-content: right;
-  margin-right: .5rem;
+  margin-right: clamp(0.3rem, 1vw, 0.8rem);
   display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1.2rem);
 }
 
 .bottom button {
@@ -151,8 +227,13 @@ body {
   border: none;
   padding: 0;
   margin: 0;
-
   padding-top: .1rem;
+  flex-shrink: 0;
+}
+
+.bottom button i {
+  width: clamp(18px, 4vw, 28px);
+  height: clamp(18px, 4vw, 28px);
 }
 
 button:hover {
@@ -164,8 +245,12 @@ button:active {
 }
 
 #cover {
-  transition: all .05s ease;
+  transition: all .2s ease;
   cursor: pointer;
+}
+
+#cover:hover {
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.5);
 }
 
 .blur {

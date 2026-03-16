@@ -137,7 +137,7 @@ const rpc = document.getElementById("rpc");
 rpc.addEventListener("click", async () => {
     rpc.disabled = true;
 
-    const setting = await window.electron.database.get("rpc");
+    const setting = await window.electron.database.get("rpc") ?? true;
 
     window.electron.database.set("rpc", !setting);
 
@@ -149,7 +149,7 @@ rpc.addEventListener("click", async () => {
 });
 
 async function showRPC() {
-    const setting = await window.electron.database.get("rpc") || true;
+    const setting = await window.electron.database.get("rpc") ?? true;
 
     rpc.innerText = setting ? "Disable" : "Enable";
 }
