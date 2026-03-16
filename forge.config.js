@@ -36,15 +36,6 @@ const makers = [
     },
   },
   {
-    name: "@electron-forge/maker-flatpak",
-    config: {
-      options: {
-        categories: ["Audio"],
-        icon: `${icon}.png`
-      }
-    }
-  },
-  {
     name: "@forkprince/electron-forge-maker-appimage",
     config: {
       productName: "Re:Lunatic Player",
@@ -70,6 +61,17 @@ if (!(process.platform === "win32" && os.arch() === "arm64"))
       manufacturer: "Prince527",
       icon: `${icon}.ico`
     },
+  });
+
+if (!(process.platform === "linux" && os.arch() === "arm64"))
+  makers.splice(5, 0, {
+    name: "@electron-forge/maker-flatpak",
+    config: {
+      options: {
+        categories: ["Audio"],
+        icon: `${icon}.png`
+      }
+    }
   });
 
 module.exports = {
