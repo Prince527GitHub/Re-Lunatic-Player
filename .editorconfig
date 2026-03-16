@@ -1,0 +1,14 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = false
+charset = utf-8
+trim_trailing_whitespace = true
+indent_size = 2
+
+[*.{js,jsx,ts,tsx,md}]
+indent_size = 4
+
+[forge.config.js]
+indent_size = 2
