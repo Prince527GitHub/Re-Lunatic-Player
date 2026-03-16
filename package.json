@@ -25,7 +25,7 @@
     "@electron-forge/publisher-github": "^7.11.1",
     "@electron/fuses": "^2.1.0",
     "@eslint/js": "^10.0.1",
-    "@forkprince/electron-forge-maker-appimage": "^1.0.11",
+    "@forkprince/electron-forge-maker-appimage": "^1.0.2",
     "@forkprince/electron-forge-maker-targz": "1.0.2",
     "electron": "^41.0.2",
     "eslint": "^10.0.3",

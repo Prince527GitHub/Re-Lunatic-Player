@@ -55,8 +55,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.0.3(jiti@2.6.1))
       '@forkprince/electron-forge-maker-appimage':
-        specifier: ^1.0.11
-        version: 1.0.11(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
+        specifier: ^1.0.2
+        version: 1.0.2(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)
       '@forkprince/electron-forge-maker-targz':
         specifier: 1.0.2
         version: 1.0.2
@@ -306,8 +306,8 @@ packages:
     resolution: {integrity: sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@forkprince/electron-forge-maker-appimage@1.0.11':
-    resolution: {integrity: sha512-9nLvtpffacxlexAZB6KgvS2NauX6knrlgM+571B2LotAJuf13PEZwWRyiUPHJNozuQzHjlH8HipT1mmzieJTwQ==}
+  '@forkprince/electron-forge-maker-appimage@1.0.2':
+    resolution: {integrity: sha512-QiOpQaXZJM8SkljiwMm/lSmGxfSlLZbtKB7HOjrj7VY+3tENI52MMAJa1n9tzSLn5swMpK29A/1LeDBGaaVo7w==}
 
   '@forkprince/electron-forge-maker-targz@1.0.2':
     resolution: {integrity: sha512-vjtQb+RD3n6mwb7/ODJbt1FCCZ3xrLtp9hCGn9Cr4GqM9OZNwhweKjTPEjE1BobjBT5ePMLwcJbbNQo3+egkZA==}
@@ -3425,7 +3425,7 @@ snapshots:
       '@eslint/core': 1.1.1
       levn: 0.4.1
 
-  '@forkprince/electron-forge-maker-appimage@1.0.11(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)':
+  '@forkprince/electron-forge-maker-appimage@1.0.2(dmg-builder@25.1.8)(electron-builder-squirrel-windows@25.1.8)':
     dependencies:
       '@electron-forge/maker-base': 7.5.0
       '@electron-forge/shared-types': 7.5.0
@@ -3783,7 +3783,7 @@ snapshots:
 
   '@types/mute-stream@0.0.4':
     dependencies:
-      '@types/node': 22.19.15
+      '@types/node': 25.5.0
 
   '@types/node@22.19.15':
     dependencies:
