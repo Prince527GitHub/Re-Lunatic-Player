@@ -59,6 +59,33 @@ jobs:
       - name: Build App
         run: pnpm run make
 
+      - name: Rename artifacts (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path "out/make" -Recurse -File | ForEach-Object {
+            $newName = $_.Name -replace ':', '-'
+            if ($newName -ne $_.Name) {
+              Rename-Item -Path $_.FullName -NewName $newName
+            }
+          }
+
+      - name: Rename artifacts (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          find out/make -type f -name "*:*" | while read file; do
+            newname=$(echo "$file" | sed 's/:/-/g')
+            mv "$file" "$newname"
+          done
+
+      - name: Rename artifacts (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          find out/make -type f -name "*:*" | while read file; do
+            newname=$(echo "$file" | sed 's/:/-/g')
+            mv "$file" "$newname"
+          done
+
       - name: Upload Artifacts (Windows)
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
