@@ -5,6 +5,7 @@
   zip,
   stdenvNoCC,
   autoPatchelfHook,
+  makeDesktopItem,
   makeWrapper,
   pnpmConfigHook,
   fetchPnpmDeps,
@@ -48,10 +49,29 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
   };
 
+  desktopItems = makeDesktopItem {
+    name = "re-lunatic-player";
+    desktopName = "Re:Lunatic Player";
+    exec = "re-lunatic-player";
+    startupWMClass = "Re:Lunatic Player";
+    genericName = "Radio Player";
+    keywords = [
+      "radio"
+      "touhou"
+      "lunatic"
+      "player"
+      "music"
+    ];
+    categories = [
+      "Audio"
+      "AudioVideo"
+    ];
+  };
+
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-huLER6WnAEQeCLXbUtrU6Ov0i8lrPGmwoSYj/9ZsPgs=";
+    hash = "sha256-BHcHLDE4KBVWrG1Jevg9OPq/xdaN1PdtIfoqzDKDGYY=";
   };
 
   buildPhase = ''
