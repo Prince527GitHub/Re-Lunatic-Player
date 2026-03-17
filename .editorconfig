@@ -7,7 +7,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 indent_size = 2
 
-[*.{js,jsx,ts,tsx,md}]
+[*.{js,jsx,ts,tsx,md,html}]
 indent_size = 4
 
 [forge.config.js]

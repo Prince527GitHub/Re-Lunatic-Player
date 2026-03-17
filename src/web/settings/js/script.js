@@ -1,16 +1,23 @@
 // Delete All Entries
 document.getElementById("all").addEventListener("click", async(event) => {
+    const original = event.target.innerText;
+
     event.target.disabled = true;
 
     if (await window.electron.database.has("history")) window.electron.database.delete("history");
 
-    alert("Deleted all entries");
+    event.target.innerText = "Deleted!";
 
-    event.target.disabled = false;
+    setTimeout(() => {
+        event.target.innerText = original;
+        event.target.disabled = false;
+    }, 2000);
 });
 
 // Delete Today's Entries
 document.getElementById("today").addEventListener("click", async(event) => {
+    const original = event.target.innerText;
+
     event.target.disabled = true;
 
     if (await window.electron.database.has("history")) {
@@ -37,9 +44,12 @@ document.getElementById("today").addEventListener("click", async(event) => {
         }
     }
 
-    alert("Deleted today's entries");
+    event.target.innerText = "Deleted!";
 
-    event.target.disabled = false;
+    setTimeout(() => {
+        event.target.innerText = original;
+        event.target.disabled = false;
+    }, 2000);
 });
 
 // Limit History Entries
@@ -132,10 +142,23 @@ async function showVersion() {
 showVersion();
 
 // Discord Rich Presence
-const rpc = document.getElementById("rpc");
+const rpcToggle = document.getElementById("rpc-toggle");
+const rpcLogin = document.getElementById("rpc-login");
+const rpcDot = document.getElementById("rpc-dot");
+const rpcStatus = document.getElementById("rpc-status-text");
 
-rpc.addEventListener("click", async () => {
-    rpc.disabled = true;
+async function updateRPC() {
+    const connected = await window.electron.activity.status();
+
+    rpcDot.className = `rpc-dot ${connected ? "connected" : "disconnected"}`;
+    rpcStatus.innerText = connected ? "Connected" : "Disconnected";
+    rpcLogin.style.display = connected ? "none" : "";
+}
+
+updateRPC();
+
+rpcToggle.addEventListener("click", async () => {
+    rpcToggle.disabled = true;
 
     const setting = await window.electron.database.get("rpc") ?? true;
 
@@ -143,15 +166,36 @@ rpc.addEventListener("click", async () => {
 
     if (setting) await window.electron.activity.clear();
 
-    rpc.innerText = setting ? "Enable" : "Disable";
+    rpcToggle.innerText = setting ? "Enable" : "Disable";
 
-    rpc.disabled = false;
+    rpcToggle.disabled = false;
 });
 
 async function showRPC() {
     const setting = await window.electron.database.get("rpc") ?? true;
 
-    rpc.innerText = setting ? "Disable" : "Enable";
+    rpcToggle.innerText = setting ? "Disable" : "Enable";
 }
 
 showRPC();
+
+rpcLogin.addEventListener("click", async () => {
+    rpcLogin.disabled = true;
+    rpcLogin.innerText = "Connecting...";
+
+    const success = await window.electron.activity.reconnect();
+
+    if (success) {
+        await updateRPC();
+
+        rpcLogin.innerText = "Connect";
+        rpcLogin.disabled = false;
+    } else {
+        rpcLogin.innerText = "Failed";
+
+        setTimeout(() => {
+            rpcLogin.innerText = "Connect";
+            rpcLogin.disabled = false;
+        }, 2000);
+    }
+});

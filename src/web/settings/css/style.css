@@ -1,215 +1,280 @@
 ::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(84, 21, 103);
-    overflow: auto;
-    color: #fff;
-    padding: 0;
-    margin: 0;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  background-color: rgb(84, 21, 103);
+  overflow: auto;
+  color: #fff;
+  padding: 0;
+  margin: 0;
 }
 
 .container {
-    justify-content: space-between;
-    align-items: stretch;
-    display: flex;
-    min-height: 100vh;
-    flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  display: flex;
+  min-height: 100vh;
+  flex-wrap: wrap;
 }
 
 .left {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: clamp(1rem, 3vw, 2.5rem);
-    display: flex;
-    width: clamp(200px, 35%, 350px);
-    min-width: 150px;
-    flex: 1 1 200px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  display: flex;
+  width: clamp(200px, 35%, 350px);
+  min-width: 150px;
+  flex: 1 1 200px;
 }
 
 .left img {
-    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
-    height: auto;
-    width: min(65%, 180px);
-    max-width: 100%;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.4));
+  height: auto;
+  width: min(65%, 180px);
+  max-width: 100%;
 }
 
 .left h1 {
-    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    margin-bottom: 0.15rem;
-    margin-top: 0.75rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  margin-bottom: 0.15rem;
+  margin-top: 0.75rem;
 }
 
 .left p {
-    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-    margin-top: 0;
-    opacity: 0.7;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  margin-top: 0;
+  opacity: 0.6;
 }
 
 .right {
-    box-sizing: border-box;
-    padding: clamp(0.75rem, 2vw, 2rem);
-    width: clamp(300px, 60%, 700px);
-    flex: 2 1 300px;
-    overflow-y: auto;
-    max-height: 100vh;
+  box-sizing: border-box;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  width: clamp(300px, 60%, 700px);
+  flex: 2 1 300px;
+  overflow-y: auto;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.5vh, 0.75rem);
 }
 
-.right button {
-    transition: all .15s ease;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-sizing: border-box;
-    border-radius: 8px;
-    margin-bottom: 0.3rem;
-    margin-top: 0.3rem;
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    height: clamp(2rem, 5vh, 2.5rem);
-    width: 100%;
-    font-size: clamp(0.8rem, 1.5vw, 0.95rem);
-    font-weight: 500;
-    color: rgb(84, 21, 103);
+.card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: clamp(0.75rem, 2vw, 1.15rem);
 }
 
-.right button:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.card h2 {
+  margin: 0 0 0.15rem 0;
+  padding: 0;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
-.right button:active {
-    background-color: rgba(255, 255, 255, 0.65);
-    transform: translateY(0);
-    box-shadow: none;
+.card .desc {
+  font-size: clamp(0.7rem, 1.4vw, 0.8rem);
+  opacity: 0.55;
+  margin: 0 0 clamp(0.5rem, 1.5vh, 0.75rem) 0;
+  padding: 0;
+  line-height: 1.4;
 }
 
-.right .range {
-    margin: 0;
-    padding: 0;
-
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
-    margin-bottom: 0.3rem;
-    padding-right: 0.5rem;
-    padding-left: 0.75rem;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 0.3rem;
-    display: flex;
-    height: clamp(2rem, 5vh, 2.5rem);
-    gap: 0.5rem;
+.button-row {
+  display: flex;
+  gap: 0.4rem;
 }
 
-.right .range input {
-    margin: 0;
-    padding: 0;
-
-    accent-color: rgb(108, 26, 133);
-    box-sizing: border-box;
-    flex: 1;
-    min-width: 0;
+.card button {
+  transition: all .15s ease;
+  background-color: rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  height: clamp(2rem, 4.5vh, 2.4rem);
+  width: 100%;
+  font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+  font-weight: 500;
+  color: #fff;
 }
 
-.right .range span {
-    background-color: rgb(108, 26, 133);
-    justify-content: center;
-    border-radius: 6px;
-    align-items: center;
-    padding: 0.35rem 0.5rem;
-    display: flex;
-    flex-shrink: 0;
-    min-width: 3.5rem;
-    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-    font-weight: 500;
+.card button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
-.right .select {
-    margin: 0;
-    padding: 0;
-
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
-    margin-bottom: 0.3rem;
-    padding-right: 0.5rem;
-    padding-left: 0.75rem;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 0.3rem;
-    display: flex;
-    height: clamp(2rem, 5vh, 2.5rem);
-    gap: 0.5rem;
+.card button:active {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(0.98);
 }
 
-.right .select label {
-    margin: 0;
-    padding: 0;
-    color: rgb(84, 21, 103);
-    flex: 1;
-    min-width: 0;
-    font-size: clamp(0.8rem, 1.5vw, 0.95rem);
-    font-weight: 500;
+.card button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.right .select select {
-    background-color: rgb(108, 26, 133);
-    transition: all .15s ease;
-    border-radius: 6px;
-    text-align: center;
-    outline: none;
-    color: #fff;
-    border: none;
-    padding: 0.3rem 0.5rem;
-    margin: 0;
-    flex-shrink: 0;
-    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
-    cursor: pointer;
+.card button.secondary {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: rgb(84, 21, 103);
+  font-weight: 600;
+  border-color: transparent;
 }
 
-.right .select select:hover {
-    background-color: rgba(108, 26, 133, 0.85);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+.card button.secondary:hover {
+  background-color: rgba(255, 255, 255, 1);
 }
 
-.right .select select:active {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+.card button.secondary:active {
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
-.right h2 {
-    padding: 0;
-    margin: 0;
-    padding-top: clamp(0.75rem, 2.5vh, 1.25rem);
-    padding-bottom: 0.2rem;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
+.range {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+  height: clamp(2rem, 4.5vh, 2.4rem);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0 0.5rem 0 0.75rem;
 }
 
-.right h2:first-of-type {
-    padding-top: 0;
+.range label {
+  font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+  font-weight: 500;
+  opacity: 0.7;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.right > p {
-    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-    padding: 0;
-    margin: 0;
-    padding-bottom: 0.2rem;
-    padding-top: 0.1rem;
-    opacity: 0.75;
-    line-height: 1.5;
+.range input {
+  margin: 0;
+  padding: 0;
+  accent-color: rgb(180, 120, 210);
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+}
+
+.range span {
+  background-color: rgba(255, 255, 255, 0.12);
+  justify-content: center;
+  border-radius: 6px;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  flex-shrink: 0;
+  min-width: 3.2rem;
+  font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+  font-weight: 600;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0 0.5rem 0 0.75rem;
+  height: clamp(2rem, 4.5vh, 2.4rem);
+}
+
+.select + .select {
+  margin-top: 0.35rem;
+}
+
+.select label {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  flex: 1;
+  min-width: 0;
+  font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.select select {
+  background-color: rgba(255, 255, 255, 0.12);
+  transition: all .15s ease;
+  border-radius: 6px;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.5rem;
+  margin: 0;
+  flex-shrink: 0;
+  min-width: 10rem;
+  font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+  cursor: pointer;
+}
+
+.select select:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.select select option {
+  background-color: rgb(84, 21, 103);
+  color: #fff;
+}
+
+.rpc-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: clamp(0.4rem, 1vh, 0.6rem);
+  font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+  font-weight: 500;
+}
+
+.rpc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
+}
+
+.rpc-dot.connected {
+  background-color: #43b581;
+  box-shadow: 0 0 6px rgba(67, 181, 129, 0.5);
+}
+
+.rpc-dot.disconnected {
+  background-color: #f04747;
+  box-shadow: 0 0 6px rgba(240, 71, 71, 0.4);
+}
+
+#rpc-status-text {
+  opacity: 0.7;
+}
+
+.legal p {
+  font-size: clamp(0.68rem, 1.3vw, 0.78rem);
+  margin: 0;
+  padding: 0.12rem 0;
+  opacity: 0.45;
+  line-height: 1.5;
 }
