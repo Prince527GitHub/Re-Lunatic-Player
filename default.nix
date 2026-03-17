@@ -23,17 +23,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "nightly";
   src = ./.;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    pnpmConfigHook
-    nodejs
-    pnpm
-    electron
-    zip
-  ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      pnpmConfigHook
+      nodejs
+      pnpm
+      electron
+      zip
+    ]
+    ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
+      autoPatchelfHook
+    ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
     alsa-lib
     gtk3
     mesa
@@ -50,9 +53,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   desktopItems = makeDesktopItem {
-    name = "re-lunatic-player";
+    name = finalAttrs.pname;
     desktopName = "Re:Lunatic Player";
-    exec = "re-lunatic-player";
+    exec = finalAttrs.pname;
     startupWMClass = "Re:Lunatic Player";
     genericName = "Radio Player";
     keywords = [
@@ -98,11 +101,34 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pnpm package
   '';
 
-  installPhase = ''
-    mkdir $out
-    cp -r "./out/Re-Lunatic Player-linux-x64/" $out/opt
+  installPhase =
+    lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
+      mkdir -p $out/share
+      cp -r out/*/resources{,.pak} "$out/share"
 
-    makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
-      --add-flags $out/opt/resources/app.asar
-  '';
+      makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
+        --add-flags $out/share/resources/app.asar \
+        --set ELECTRON_FORCE_IS_PACKAGED 1 \
+        --inherit-argv0
+    ''
+    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
+      mkdir -p $out/Applications
+      cp -r out/*/Re-Lunatic\ Player.app $out/Applications
+
+      makeWrapper "$out/Applicaations/Re-Lunatic Player.app/Contents/Macos/re-lunatic-player" "$out/bin/re-lunatic-player" \
+        --set ELECTRON_FORCE_IS_PACKAGED 1 \
+        --inherit argv0
+    '';
+
+  meta = {
+    description = "Music player for Gensokyo Radio";
+    homepage = "https://github.com/Prince527Github/Re-Lunatic-Player";
+    license = lib.licenses.agpl3Plus;
+    maintainers = [
+      "Prince527"
+      "The25thWam"
+    ];
+    platforms = with lib.platforms; linux ++ darwin;
+    mainProgram = finalAttrs.pname;
+  };
 })
