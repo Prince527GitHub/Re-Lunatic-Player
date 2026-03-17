@@ -5,6 +5,7 @@
   zip,
   stdenvNoCC,
   autoPatchelfHook,
+  copyDesktopItems,
   makeDesktopItem,
   makeWrapper,
   pnpmConfigHook,
@@ -25,11 +26,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs =
     [
+      copyDesktopItems
       makeWrapper
       pnpmConfigHook
       nodejs
       pnpm
-      electron
       zip
     ]
     ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
@@ -37,6 +38,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
 
   buildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
+    electron
+
     alsa-lib
     gtk3
     mesa
@@ -118,6 +121,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       makeWrapper "$out/Applicaations/Re-Lunatic Player.app/Contents/Macos/re-lunatic-player" "$out/bin/re-lunatic-player" \
         --set ELECTRON_FORCE_IS_PACKAGED 1 \
         --inherit argv0
+    ''
+    + ''
+      runHook postInstall
     '';
 
   meta = {
