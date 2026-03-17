@@ -1,4 +1,4 @@
-name: Build App
+name: (DEV) Build App
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - 'flake.lock'
       - 'flake.nix'
     branches:
-      - main
+      - dev
   workflow_dispatch:
 
 jobs:
@@ -56,7 +56,20 @@ jobs:
       - name: Install Packages
         run: pnpm i
 
-      - name: Publish App
-        run: pnpm run publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build App
+        run: pnpm run make
+
+      - name: Rename Artifacts
+        shell: bash
+        run: |
+          find out/make -type f -name "*:*" | while read file; do
+            newname=$(echo "$file" | tr ':' '-')
+            mv "$file" "$newname"
+          done
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}
+          path: out/make/**/*
+          if-no-files-found: warn

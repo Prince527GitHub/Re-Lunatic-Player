@@ -99,3 +99,6 @@ database.json
 
 # pnpm
 .pnpm-store
+
+dist
+result*

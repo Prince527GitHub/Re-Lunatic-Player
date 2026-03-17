@@ -1,8 +1,78 @@
 const { FuseV1Options, FuseVersion } = require("@electron/fuses");
 const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 const path = require("path");
+const os = require("os");
 
 const icon = path.join(__dirname, "src/img/logo");
+
+const makers = [
+  {
+    name: "@electron-forge/maker-squirrel",
+    config: {
+      iconUrl: "https://api.serversmp.xyz/upload/683b06cebf4051700ba56804.ico",
+      setupIcon: `${icon}.ico`,
+      name: "ReLunaticPlayer"
+    },
+  },
+  {
+    name: "@electron-forge/maker-zip"
+  },
+  {
+    name: "@electron-forge/maker-dmg",
+    config: {
+      name: "Re:Lunatic Player"
+    },
+  },
+  {
+    name: "@electron-forge/maker-deb",
+    config: {
+      icon: `${icon}.png`
+    },
+  },
+  {
+    name: "@electron-forge/maker-rpm",
+    config: {
+      icon: `${icon}.png`
+    },
+  },
+  {
+    name: "@forkprince/electron-forge-maker-appimage",
+    config: {
+      productName: "Re:Lunatic Player",
+      icons: [
+        {
+          file: `${icon}.png`,
+          size: 256
+        }
+      ]
+    },
+  },
+  {
+    name: "@forkprince/electron-forge-maker-targz",
+  }
+];
+
+if (!(process.platform === "win32" && os.arch() === "arm64"))
+  makers.splice(1, 0, {
+    name: "@electron-forge/maker-wix",
+    config: {
+      exe: "re-lunatic-player.exe",
+      shortName: "ReLunaticPlayer",
+      manufacturer: "Prince527",
+      icon: `${icon}.ico`
+    },
+  });
+
+if (!(process.platform === "linux" && os.arch() === "arm64"))
+  makers.splice(5, 0, {
+    name: "@electron-forge/maker-flatpak",
+    config: {
+      options: {
+        categories: ["Audio"],
+        icon: `${icon}.png`
+      }
+    }
+  });
 
 module.exports = {
   packagerConfig: {
@@ -13,70 +83,7 @@ module.exports = {
     asar: true,
   },
   rebuildConfig: {},
-  makers: [
-    {
-      name: "@electron-forge/maker-squirrel",
-      config: {
-        iconUrl: "https://api.serversmp.xyz/upload/683b06cebf4051700ba56804.ico",
-        setupIcon: `${icon}.ico`,
-        name: "ReLunaticPlayer"
-      },
-    },
-    {
-      name: "@electron-forge/maker-wix",
-      config: {
-        exe: "re-lunatic-player.exe",
-        shortName: "ReLunaticPlayer",
-        manufacturer: "Prince527",
-        icon: `${icon}.ico`
-      },
-    },
-    {
-      name: "@electron-forge/maker-zip"
-    },
-    {
-      name: "@electron-forge/maker-dmg",
-      config: {
-        name: "Re:Lunatic Player"
-      },
-    },
-    {
-      name: "@electron-forge/maker-deb",
-      config: {
-        icon: `${icon}.png`
-      },
-    },
-    {
-      name: "@electron-forge/maker-rpm",
-      config: {
-        icon: `${icon}.png`
-      },
-    },
-    {
-      name: "@electron-forge/maker-flatpak",
-      config: {
-        options: {
-          categories: ["Audio"],
-          icon: `${icon}.png`
-        }
-      }
-    },
-    {
-      name: "@forkprince/electron-forge-maker-appimage",
-      config: {
-        productName: "Re:Lunatic Player",
-        icons: [
-          {
-            file: `${icon}.png`,
-            size: 256
-          }
-        ]
-      },
-    },
-    {
-      name: "@forkprince/electron-forge-maker-targz",
-    }
-  ],
+  makers,
   publishers: [
     {
       name: "@electron-forge/publisher-github",

@@ -8,6 +8,8 @@ contextBridge.exposeInMainWorld("electron", {
     activity: {
         set: (song) => ipcRenderer.send("set-activity", song),
         clear: () => ipcRenderer.send("clear-activity"),
+        login: () => ipcRenderer.invoke("login-activity"),
+        status: () => ipcRenderer.invoke("status-activity"),
     },
     window: {
         open: (settings) => ipcRenderer.send("open-window", settings),

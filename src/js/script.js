@@ -1,5 +1,6 @@
 feather.replace();
 
+const background = document.getElementById("bg-blur");
 const cover = document.getElementById("cover");
 
 const title = document.getElementById("title");
@@ -7,6 +8,7 @@ const description = document.getElementById("description");
 
 const current = document.getElementById("current");
 const total = document.getElementById("total");
+const progress = document.getElementById("progress");
 
 const audio = new Audio();
 
@@ -16,7 +18,7 @@ function formatTime(ms) {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
-    return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 }
 
 function truncateText(string, length) {
@@ -78,11 +80,18 @@ async function setSong(song) {
     song.albumart = song.albumart?.split("/")?.pop();
 
     cover.src = song.albumart ? `https://gensokyoradio.net/images/albums/${quality}/${song.albumart}` : "./img/undefined.png";
+    background.style.backgroundImage = song.albumart ? `url(https://gensokyoradio.net/images/albums/500/${song.albumart})` : "none";
+
     title.innerText = truncateText(song.title, 45);
-    description.innerText = `${song.duration}sec. (${truncateText(song.artist, 7)})`; 
+    description.innerText = `${song.duration}sec. (${truncateText(song.artist, 7)})`;
 
     song.current = Date.now() - song.played * 1000;
     song.total = song.current + song.duration * 1000;
+
+    progress.style.transition = "none";
+    progress.style.width = "0%";
+    progress.offsetWidth;
+    progress.style.transition = "";
 
     total.innerText = formatTime(song.total - song.current);
 
@@ -105,7 +114,7 @@ async function setSong(song) {
             year: song.year
         },
         time: {
-            duration: cleanTime(song.duration),
+            duration: song.duration,
             start: cleanTime(song.current),
             end: cleanTime(song.total)
         }
@@ -139,10 +148,13 @@ async function setSong(song) {
 
 setInterval(async () => {
     const elapsed = Date.now() - currentSong.current;
+    const duration = currentSong.total - currentSong.current;
+    const ratio = Math.min(elapsed / duration, 1);
 
     current.innerText = formatTime(elapsed);
+    progress.style.width = `${(ratio * 100).toFixed(2)}%`;
 
-    window.electron.window.progress(Math.min(elapsed / (currentSong.total - currentSong.current), 1));
+    window.electron.window.progress(ratio);
 }, 1000);
 
 // Image Quality

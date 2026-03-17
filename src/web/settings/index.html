@@ -15,40 +15,62 @@
             <p>Version <span id="version">Unknown</span></p>
         </div>
         <div class="right">
-            <h2>Song Database</h2>
-            <p>Delete and limit entries from the database</p>
-            <button id="all">Delete all entries</button>
-            <button id="today">Delete today's entries</button>
-            <div class="range">
-                <input type="range" name="amount" id="amount" step="1" min="0" max="5" value="1">
-                <span id="amount-value">50</span>
-            </div>
+            <section class="card">
+                <h2>Song Database</h2>
+                <p class="desc">Delete and limit entries from the database</p>
+                <div class="button-row">
+                    <button id="all">Delete all</button>
+                    <button id="today">Delete today</button>
+                </div>
+                <div class="range">
+                    <label>History limit</label>
+                    <input type="range" name="amount" id="amount" step="1" min="0" max="5" value="1">
+                    <span id="amount-value">50</span>
+                </div>
+            </section>
 
-            <h2>Quality Settings</h2>
-            <p>Modify the quality of the audio and art</p>
-            <div class="select">
-                <label for="image">Image Quality</label>
-                <select name="image" id="image">
-                    <option value="500">Standard (500px)</option>
-                    <option value="200" selected>Mobile (200px)</option>
-                </select>
-            </div>
-            <div class="select">
-                <label for="audio">Audio Quality</label>
-                <select name="audio" id="audio">
-                    <option value="3">Enhanced (256kbps)</option>
-                    <option value="1" selected>Standard (128kbps)</option>
-                    <option value="2">Mobile (64kbps)</option>
-                </select>
-            </div>
+            <section class="card">
+                <h2>Quality Settings</h2>
+                <p class="desc">Modify the quality of the audio and art</p>
+                <div class="select">
+                    <label for="image">Image Quality</label>
+                    <select name="image" id="image">
+                        <option value="500">Standard (500px)</option>
+                        <option value="200" selected>Mobile (200px)</option>
+                    </select>
+                </div>
+                <div class="select">
+                    <label for="audio">Audio Quality</label>
+                    <select name="audio" id="audio">
+                        <option value="3">Enhanced (256kbps)</option>
+                        <option value="1" selected>Standard (128kbps)</option>
+                        <option value="2">Mobile (64kbps)</option>
+                    </select>
+                </div>
+            </section>
 
-            <h2>Legal + Attributions</h2>
-            <p>Content provided by Gensokyo Radio</p>
-            <p>Re:Lunatic Player created by Prince527</p>
-            <p>Lunatic Player created by Tim Weiß</p>
-            <p>The GR logo is a trademark of Gensokyo Radio</p>
-            <p>Gensokyo Radio is © LunarSpotlight</p>
-            <p>Touhou Project is © Team Shanghai Alice</p>
+            <section class="card">
+                <h2>Discord Rich Presence</h2>
+                <p class="desc">Shows the current song in Discord</p>
+                <div class="rpc-status" id="rpc-status">
+                    <span class="rpc-dot" id="rpc-dot"></span>
+                    <span id="rpc-status-text">Checking...</span>
+                </div>
+                <div class="button-row">
+                    <button id="rpc-toggle">Disable</button>
+                    <button id="rpc-login" class="secondary" style="display: none;">Connect</button>
+                </div>
+            </section>
+
+            <section class="card legal">
+                <h2>Legal + Attributions</h2>
+                <p>Content provided by Gensokyo Radio</p>
+                <p>Re:Lunatic Player created by Prince527</p>
+                <p>Lunatic Player created by Tim Weiß</p>
+                <p>The GR logo is a trademark of Gensokyo Radio</p>
+                <p>Gensokyo Radio is &copy; LunarSpotlight</p>
+                <p>Touhou Project is &copy; Team Shanghai Alice</p>
+            </section>
         </div>
     </div>
 
