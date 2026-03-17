@@ -59,7 +59,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     name = finalAttrs.pname;
     desktopName = "Re:Lunatic Player";
     exec = finalAttrs.pname;
+    icon = finalAttrs.pname;
+    startupNotify = true;
     startupWMClass = "Re:Lunatic Player";
+    terminal = false;
     genericName = "Radio Player";
     keywords = [
       "radio"
@@ -104,27 +107,36 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pnpm package
   '';
 
-  installPhase =
-    lib.optionalString stdenvNoCC.hostPlatform.isLinux ''
-      mkdir -p $out/share
-      cp -r out/*/resources{,.pak} "$out/share"
+  installPhase = builtins.concatStringsSep "\n" [
+    (
+      lib.optionalString stdenvNoCC.hostPlatform.isLinux
+      ''
+        mkdir -p $out/share
+        cp -r out/*/resources{,.pak} "$out/share"
 
-      makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
-        --add-flags $out/share/resources/app.asar \
-        --set ELECTRON_FORCE_IS_PACKAGED 1 \
-        --inherit-argv0
-    ''
-    + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
-      mkdir -p $out/Applications
-      cp -r out/*/Re-Lunatic\ Player.app $out/Applications
+        makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
+          --add-flags $out/share/resources/app.asar \
+          --set ELECTRON_FORCE_IS_PACKAGED 1 \
+          --inherit-argv0
 
-      makeWrapper "$out/Applicaations/Re-Lunatic Player.app/Contents/Macos/re-lunatic-player" "$out/bin/re-lunatic-player" \
-        --set ELECTRON_FORCE_IS_PACKAGED 1 \
-        --inherit argv0
+        install -Dm644 src/img/logo.png $out/share/icons/hicolor/256x256/apps/re-lunatic-player.png
+      ''
+    )
+    (
+      lib.optionalString stdenvNoCC.hostPlatform.isDarwin
+      ''
+        mkdir -p $out/Applications
+        cp -r out/*/Re-Lunatic\ Player.app $out/Applications
+
+        makeWrapper "$out/Applicaations/Re-Lunatic Player.app/Contents/Macos/re-lunatic-player" "$out/bin/re-lunatic-player" \
+          --set ELECTRON_FORCE_IS_PACKAGED 1 \
+          --inherit argv0
+      ''
+    )
     ''
-    + ''
       runHook postInstall
-    '';
+    ''
+  ];
 
   meta = {
     description = "Music player for Gensokyo Radio";
