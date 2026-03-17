@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/Prince527GitHub/Re-Lunatic-Player">
-        <img src="https://api.serversmp.xyz/upload/69b80ecb429f654842ab3ce5.png" width="200%">
+        <img src="https://api.serversmp.xyz/upload/69b8b4c24403d8f0dd63ca8c.png" width="200%">
     </a>
 </p>
 
