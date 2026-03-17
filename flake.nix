@@ -3,38 +3,34 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
-    systems.url = "github:nix-systems/default";
   };
 
   outputs = {
-    systems,
+    self,
     nixpkgs,
-    ...
   }: let
-    eachSystem = nixpkgs.lib.genAttrs (import systems);
+    eachSystem = f: builtins.mapAttrs f nixpkgs.legacyPackages;
   in {
+    formatter = eachSystem (system: pkgs: pkgs.alejandra);
+
     devShells = eachSystem (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-        electron = pkgs.electron_41-bin;
-      in {
-        default = pkgs.mkShell {
+      system: pkgs: {
+        default = pkgs.mkShellNoCC {
           packages = with pkgs; [
-            electron
             nodejs
             pnpm
           ];
 
-          shellHook = ''
-            export ELECTRON_OVERRIDE_DIST_PATH="${electron}/bin/"
-            export ELECTRON_SKIP_BINARY_DOWNLOAD=1
-          '';
+          env = {
+            ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
+            ELECTRON_OVERRIDE_DIST_PATH = pkgs.electron.dist;
+          };
         };
       }
     );
+
+    packages = eachSystem (system: pkgs: {
+      default = pkgs.callPackage ./default.nix {};
+    });
   };
 }
