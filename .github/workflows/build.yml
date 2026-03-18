@@ -4,14 +4,33 @@ on:
   push:
     paths-ignore:
       - 'README.md'
+      - 'default.nix'
       - 'flake.lock'
       - 'flake.nix'
     branches:
       - main
+      - dev
   workflow_dispatch:
 
 jobs:
-  release:
+  nix:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Build App
+        run: nix build .#default
+
+  build:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -21,7 +40,7 @@ jobs:
     permissions: write-all
 
     steps:
-      - name: Check out Git repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Update System
@@ -57,6 +76,28 @@ jobs:
         run: pnpm i
 
       - name: Publish App
+        if: github.ref == 'refs/heads/main'
         run: pnpm run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build App
+        if: github.ref == 'refs/heads/dev'
+        run: pnpm run make
+
+      - name: Rename Artifacts
+        if: github.ref == 'refs/heads/dev'
+        shell: bash
+        run: |
+          find out/make -type f -name "*:*" | while read file; do
+            newname=$(echo "$file" | tr ':' '-')
+            mv "$file" "$newname"
+          done
+
+      - name: Upload Artifacts
+        if: github.ref == 'refs/heads/dev'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}
+          path: out/make/**/*
+          if-no-files-found: warn
