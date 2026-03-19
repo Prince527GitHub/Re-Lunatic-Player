@@ -4,17 +4,40 @@ on:
   push:
     paths-ignore:
       - 'README.md'
-      - 'default.nix'
-      - 'flake.lock'
-      - 'flake.nix'
     branches:
       - main
       - dev
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish release'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
+  check-files:
+    runs-on: ubuntu-latest
+    outputs:
+      nix-only: ${{ steps.check.outputs.nix-only }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check changed files
+        id: check
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -v -E '^(default\.nix|flake\.lock|flake\.nix)$' | grep -q .; then
+            echo "nix-only=false" >> $GITHUB_OUTPUT
+          else
+            echo "nix-only=true" >> $GITHUB_OUTPUT
+          fi
+
   nix:
     runs-on: ${{ matrix.os }}
+    needs: check-files
 
     strategy:
       matrix:
@@ -32,6 +55,8 @@ jobs:
 
   build:
     runs-on: ${{ matrix.os }}
+    needs: check-files
+    if: (needs.check-files.outputs.nix-only == 'false' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')) || github.event_name == 'workflow_dispatch'
 
     strategy:
       matrix:
@@ -76,17 +101,17 @@ jobs:
         run: pnpm i
 
       - name: Publish App
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && inputs.publish)
         run: pnpm run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build App
-        if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && !inputs.publish)
         run: pnpm run make
 
       - name: Rename Artifacts
-        if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && !inputs.publish)
         shell: bash
         run: |
           find out/make -type f -name "*:*" | while read file; do
@@ -95,7 +120,7 @@ jobs:
           done
 
       - name: Upload Artifacts
-        if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && !inputs.publish)
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}

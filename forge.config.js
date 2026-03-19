@@ -8,11 +8,12 @@ const icon = path.join(__dirname, "src/img/logo");
 const makers = [
   {
     name: "@electron-forge/maker-squirrel",
-    config: {
+    config: (arch) => ({
       iconUrl: "https://api.serversmp.xyz/upload/683b06cebf4051700ba56804.ico",
       setupIcon: `${icon}.ico`,
-      name: "ReLunaticPlayer"
-    },
+      name: arch === "arm64" ? "ReLunaticPlayer-arm64" : "ReLunaticPlayer",
+      setupExe: arch === "arm64" ? "Re-Lunatic.Player-arm64-Setup.exe" : "Re-Lunatic.Player-Setup.exe"
+    }),
   },
   {
     name: "@electron-forge/maker-zip"

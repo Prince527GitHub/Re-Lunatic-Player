@@ -23,7 +23,7 @@
 
           env = {
             ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
-            ELECTRON_OVERRIDE_DIST_PATH = pkgs.electron.dist;
+            ELECTRON_OVERRIDE_DIST_PATH = pkgs.lib.makeBinPath [pkgs.electron_41];
           };
         };
       }

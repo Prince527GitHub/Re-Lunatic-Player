@@ -99,7 +99,7 @@ async function showDetails(start, end) {
         file: `web/details/index.html`,
         title: `Details: ${parsed.time.duration}sec. - ${parsed.info.title}`,
         width: 346,
-        height: 362,
+        height: 400,
         data: parsed
     });
 }

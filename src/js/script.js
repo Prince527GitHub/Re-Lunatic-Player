@@ -270,7 +270,7 @@ document.getElementById("button-history").addEventListener("click", () => {
         file: "web/history/index.html",
         title: "Song History",
         width: 436,
-        height: 353,
+        height: 400,
     });
 });
 
